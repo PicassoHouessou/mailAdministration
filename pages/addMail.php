@@ -1,4 +1,4 @@
-<div class="row">
+<!--<div class="row">
         <form class="col-md-8 col-md-pull-2" method="post" action="ajout_utilisateur.php">
             <legend>Page d'ajout d'utilisateurs de messagerie</legend>
             <div class="form-group">
@@ -20,5 +20,7 @@
         </form>
         
 </div>
+-->
+INSERT INTO `virtual_users_infos`(`nom`, `prenom`, `pays` ,`telephone`,`matricule`) VALUE ('
 	
 		

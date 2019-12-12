@@ -3,7 +3,7 @@
     
     <section class="col-md-10 offset-md-2"><br>
     <?php
-        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['email']. "</strong> sur la plateforme d'aministration. Il est ". date('H:i:s')."<br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
+        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est ". date('H:i:s')."<br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
     ?>           
         </p>
     </section>
@@ -17,8 +17,8 @@
                     <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="exemple@eneam.da">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    <small id="emailPassword" class="form-text text-muted">Pour plus de sécurité, veuillez enntrer un long mot de passe avec plusieurs.</small>
+                    <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <small id="emailPassword" class="form-text text-muted">Pour plus de sécurité, veuillez enntrer un long mot de passe avec un mélange de caractères.</small>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="facultatif" name="facultatif">
@@ -32,20 +32,20 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prenom">Prénoms</label>
-                    <input type="text" placeholder="Prénoms Ex: Paul Karl" class="form-control">                    
+                    <input type="text" id="prenom" placeholder="Prénoms Ex: Paul Karl" class="form-control">                    
                 </div>
                 <div class="form-row">                    
                     <div class="form-group col-md-4">
                         <label for="matricule">Matricule</label>
-                        <input type="number" placeholder="Matricule ex: 112222" class="form-control" id="matricule" name="matricule">
+                        <input type="tel" placeholder="Matricule ex: 112222" class="form-control" id="matricule" name="matricule">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="telephone">Numéro de téléphone</label>
-                        <input type="tel" placeholder="Numero de telephone" class="form-control">  
+                        <input type="tel" placeholder="Numero de telephone" class="form-control" id="telephone">  
                     </div>          
                     <div class="form-group col-md-4">
-                        <label>Pays</label>
-                        <select name="pays" class="form-control">
+                        <label for="pays">Pays</label>
+                        <select name="pays" class="form-control" id="pays">
                             <optgroup label="Afrique 54pays">Afrique</option>                    
                                 <option value="Afrique du Sud">Afrique du Sud</option>
                                 <option value="Algérie">Algérie</option>
@@ -141,7 +141,6 @@
                                 <option value="Venezuela">Venezuela</option>
                             </optgroup>
                             <optgroup label="Asie 45pays">
-                                <option value=""></option>
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Arabie saoudite">Arabie saoudite</option>
                                 <option value="Bahreïn">Bahreïn</option>
@@ -270,5 +269,5 @@
 </div>
 <?php
     echo "<script src=\"pages/js/home.js\"></script>" ;
-echo "Bonjour" ;
+
 ?>

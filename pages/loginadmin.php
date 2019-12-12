@@ -1,14 +1,16 @@
-
+<!-- Ce formulaire s'appelle elle meme ensuite si toutes les verifications sont ok elle redirige à la page d'accueil  OBSOLETE  --> 
 <div class="row">
     
-    <form method="post" action="index.php?page=adminbord" class="col-md-6 offset-md-3">
+    <form method="post" action="index.php?page=home" class="col-md-6 offset-md-3">
         <legend >Connexion Administrateur</legend>
         <div class="form-group">
-            <label for="mailAdmin">Adresse email :</label>
-            <input type="email" name="mailAdmin" class="form-control" required>
+            
+            <label for="email">Adresse email</label>            
+            <input type="email" name="email" class="form-control" required name="email" id="email">
+            <small id="emailHelp" class="form-text text-muted d-none">Votre email.</small>
         </div>
         <div class="form-group">
-		    <label for="password">Mot de passe :</label> 
+		    <label for="password">Mot de passe</label> 
             <input type="password" name="password" id="password" class="form-control" required>
 					
         </div>
@@ -21,6 +23,5 @@
 </div>
 
 <?php
-    echo "<script src=\"pages/js/home.js\"></script>" ;
-echo "Bonjour" ;
+    echo "<script src=\"pages/js/loginadmin.js\"></script>" ;
 ?>

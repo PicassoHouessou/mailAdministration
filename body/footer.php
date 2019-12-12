@@ -17,5 +17,5 @@
             <li></li>
         </ul>
     </div>
-    <div class="col-md-12 offset-md-4"><h4 class="text-primary">Fait par Picasso Houessou aka Yacamazuka</h4></div>		 		
+    <div class="col-md-12 "><h4 class="text-primary font-weight-normal text-center col-md-12">Fait par Picasso Houessou aka Yacamazuka Tout droit réservé <i class="fas fa-copyright"></i></h4></div>		 		
 </footer>

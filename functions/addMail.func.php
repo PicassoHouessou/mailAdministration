@@ -1,5 +1,5 @@
 <?php
-/*
+
     $error = array
     (
         'value' => '' , // Valeur possible 
@@ -9,7 +9,7 @@
         
     
     
-    /*function connectDatabase (string $dsn , string $username, string $passwd, array $options)
+    function connectDatabase (string $dsn , string $username, string $passwd, array $options)
     {
         try
         {
@@ -29,8 +29,21 @@
     }
     
     
-    if ( isset($_POST['email']) && isset($_POST['password']))
+    if ( isset($_POST['email']) && isset($_POST['password'])  && isset($_POST['passwordConfirm'])&& isset($_POST['facultatif']))
     {
+        if ($_POST['facultaitf']==)
+        {
+            if ( isset($_POST['nom']) && isset($_POST['prenom'])  && isset($_POST['matricule'])&& isset($_POST['pays']))
+            {
+                
+            }
+            else
+            {
+                
+            }
+            
+            
+        }
         
                                                                     
     }
@@ -42,10 +55,18 @@
         //On s'assure que le code qui suis ne sera pas exécuté
         exit;
         
-    }    
-    $emailA = protectionForm($_POST['email']) ;
-    $passwordA = protectionForm($_POST['password']) ;
+    }   
+    $elementFacultatif = true ; 
+    $email = protectionForm($_POST['email']) ;
+    $password = protectionForm($_POST['password']) ;
+    $passwordConfirm = protectionForm($_POST['passwordConfirm']) ;
     $passwordHach = password_hash($passwordA,PASSWORD_ARGON2I) ;
+    $nom = protectionForm($_POST['nom']) ;
+    $prenom = protectionForm($_POST['prenom']) ;
+    $nom = protectionForm($_POST['pays']) ;
+    $prenom = protectionForm($_POST['matricule']) ;
+    
+    
     
     try
     {
@@ -89,6 +110,6 @@
     }
     
     $req1->closeCursor() ;
-*/
+
 ?>
 

@@ -1,11 +1,4 @@
-<?php
-    // Pour generer les sessions
-session_start() ;
-$_SESSION['email'] = "houessoupicasso@eneam.da" ;
-$_SESSION['ip'] = "0.0.0.0" ;
 
-
-?>
 <?php
 	$pages = scandir('pages/');
 	if (isset($_GET['page']) && !empty($_GET['page'])) {
@@ -24,11 +17,12 @@ $_SESSION['ip'] = "0.0.0.0" ;
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 	<meta name="viewport" >
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.css">
 	
 	<title>Page d'aministration eneam.da</title>
 	<!--<style>
@@ -53,7 +47,9 @@ $_SESSION['ip'] = "0.0.0.0" ;
 <?php
     include "body/topbar.php";
 ?>
-
+<!-- Quand le javasriot est désactivé
+-->
+<noscript> <p class="bg-info text-center" style="font-size: 2rem;">Vous avez désactivé le javascript.  <br/>Activer le si vous voulez une meilleure expérience utilisateur <i class="fas fa-spinner fa-spin"></i></p></noscript>
 <?php
     include 'pages/'.$page.'.php';
 ?>
