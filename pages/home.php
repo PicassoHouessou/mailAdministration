@@ -1,24 +1,29 @@
 
-<div class="row" style="margin-bottom: 200px;"  >   
+<div class="row" style="margin-bottom: 200px;">   
     
     <section class="col-md-10 offset-md-2"><br>
     <?php
-        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est ". date('H:i:s')."<br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
+        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est <strong>". date('Y-m-d')."</strong><br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
     ?>           
         </p>
     </section>
     <section class="col-md-8 offset-md-2">
         <!--<div class="card"> -->
         <div class="card rounded" style="padding-top: 20px; padding-bottom: 20px;">
-        <form method="post" action="ajout_utilisateur.php" class="col-md-12">
+        <form method="post" action="index?page=ajout_utilisateur" class="col-md-12">
             <legend><h4>Création rapide de compte email</h4></legend>
             <div class="col-md-12">
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="exemple@eneam.da">
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="exemple@eneam.da" required>
                 </div>
                 <div class="form-group">
-                    <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    <small id="emailPassword" class="form-text text-muted">Pour plus de sécurité, veuillez enntrer un long mot de passe avec un mélange de caractères.</small>
+                    <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="********************************************" required>
+                    <small id="emailPassword" class="form-text text-muted">Doit contenir au moins 8 caractères, une lettre majuscule, un chiffre et un caractère spécial !@&#$%^*-.</small>
+                </div>
+                <div class="form-group">
+                    <input type="password"  name="passwordConfirm" class="form-control" id="exampleInputPassword2" placeholder="********************************************" required>
+                    <small id="emailPassword2" class="form-text text-muted">
+                    Veuillez confirmer le mot de passe</small>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="facultatif" name="facultatif">
@@ -28,29 +33,34 @@
             <div class="form-row d-none" id="elementFacultatif">
                 <div class="form-group col-md-6">
                     <label for="nom">Nom </label> 
-                    <input type="tel" placeholder="Nom Ex: Houessou " class="form-control" id="nom">
+                    <input type="tel" placeholder="Nom Ex: Houessou " class="form-control" id="nom" name="nom">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prenom">Prénoms</label>
-                    <input type="text" id="prenom" placeholder="Prénoms Ex: Paul Karl" class="form-control">                    
+                    <input type="text" id="prenom" name="prenom" placeholder="Prénoms Ex: Paul Karl" class="form-control">                    
                 </div>
                 <div class="form-row">                    
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="matricule">Matricule</label>
                         <input type="tel" placeholder="Matricule ex: 112222" class="form-control" id="matricule" name="matricule">
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="telephone">Numéro de téléphone</label>
-                        <input type="tel" placeholder="Numero de telephone" class="form-control" id="telephone">  
-                    </div>          
-                    <div class="form-group col-md-4">
+                        <input type="tel" placeholder="Numero de telephone" class="form-control" id="telephone" name="telephone">  
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="dateFin">Date d'expiration</label>
+                        <input type="date" class="form-control" id="dateFin" name="dateFin" <?php $min = date('Y-m-d'); $max = date('Y-m-d',time()+157680000 ); echo 'min="'.$min.'"' ; echo ' max="'.$max.'"';?>> 
+                        <small id="" class="form-text text-muted">Ne peut dépasser <?php $max = date('Y-m-d',time()+157680000 ); echo ' '.$max ;?></small>
+                    </div>
+                    <div class="form-group col-md-3">
                         <label for="pays">Pays</label>
                         <select name="pays" class="form-control" id="pays">
                             <optgroup label="Afrique 54pays">Afrique</option>                    
                                 <option value="Afrique du Sud">Afrique du Sud</option>
                                 <option value="Algérie">Algérie</option>
                                 <option value="Angola">Angola</option>
-                                <option value="Bénin">Bénin</option>
+                                <option value="Bénin" selected>Bénin</option>
                                 <option value="Botswana">Botswana</option>
                                 <option value="Burkina">Burkina</option>
                                 <option value="Burundi">Burundi</option>
@@ -257,15 +267,48 @@
                         </select>     
                     </div>
                 </div>
+                
             </div>
 
 
           <button type="submit" class="btn btn-primary">Créer le compte</button>
         </form>
         </div>
-        <!--</div> -->
+        <!--</div> 
     </section>
-
+    
+        < div class="modal" data-backdrop="static" tabindex="-1" role="dialog" id="politique">        
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-bold">Confidentialité et Politique d'utilisation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <p> Soyez la bienvenue sur la page d'administration du serveur de mail. Nous n'utilisons pas du tout les cookies. L'utilisation de cette plateforme est sujette à plusieurs conditions que vous approuvez explicitement.</p>
+                    <p>
+                         <h6 class="font-weight-bold">Nous déclinons toutes responsabilité à la mauvaise utilisation  </h6>
+                         En effet vous etes responsables de l'utilisation que vous faites de ce outils. De ce fait notre équipe ne peut pas etre tenu responsable de vos agissements.   
+                    </p>
+                    <p>
+                         <h6 class="font-weight-bold">Votre travail, notre plaisir </h6>
+                         Nous travaillons chaque jour à rendre meilleur nos services pour vous garantir la sécurité et une experience informatique plus doue que jamais.   
+                    </p>
+                    <p>
+                         <h6 class="font-weight-bold">Nous sommes à l'ecoute</h6>
+                         Nous vous encourageons de bien vouloir nous faire part de problèmes ou bugs constatés afin que nous vous aidons dans la démarches à suivre   
+                    </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary">Accepter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
 </div>
 <?php
     echo "<script src=\"pages/js/home.js\"></script>" ;

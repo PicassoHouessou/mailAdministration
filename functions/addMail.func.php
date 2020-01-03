@@ -76,7 +76,7 @@
     {
         dye('Erreur : ' .$e->getMessage()) ;
     }
-   
+   //INSERT INTO `virtual_users_infos`(`nom`, `prenom`, `pays` ,`telephone`,`matricule`) VALUE ('
     $req1 = $bdd->prepare('SELECT email , password, nom, prenom FROM admin WHERE email=:mail AND password=:pass') ;
     $req1->execute( array(
     'mail' =>  $emailA ,
@@ -105,7 +105,7 @@
     {
         $error['value'] = "INCONNU";
         $error['info'] = "Problème inconnu, contacter l'administrateur" ;        
-        header ('Location: index?page=loginadmin&amp;errorValue='.$error['value']);
+        header ('Location: index?page=loginadmin&errorValue='.$error['value']);
         exit ;        
     }
     

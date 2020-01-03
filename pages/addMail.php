@@ -21,6 +21,6 @@
         
 </div>
 -->
-INSERT INTO `virtual_users_infos`(`nom`, `prenom`, `pays` ,`telephone`,`matricule`) VALUE ('
+
 	
 		

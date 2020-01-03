@@ -1,4 +1,13 @@
-
+<?php
+    //Initialisation des sessions
+    session_start() ;
+    /* $_SESSION['state'] = false ;
+    $_SESSION['email'] = NULL;
+    $_SESSION['prenom'] = NULL;
+    $_SESSION['nom'] = NULL ;
+    $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'] ;
+    */
+?>
 <?php
 	$pages = scandir('pages/');
 	if (isset($_GET['page']) && !empty($_GET['page'])) {
@@ -23,7 +32,10 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.css">
-	
+	<script src="dist/js/jquery.js"></script>
+    <script src="dist/js/popper.min.js"></script>
+    <script src="dist/js/bootstrap.js"></script>
+    
 	<title>Page d'aministration eneam.da</title>
 	<!--<style>
         footer
@@ -38,9 +50,6 @@
         }
     </style>
 -->
-    <style>
-        
-    </style>
 </head>
 <body>
 <div class="container-fluid" >
@@ -53,12 +62,13 @@
 <?php
     include 'pages/'.$page.'.php';
 ?>
-
 <?php
 	include "body/footer.php";
 ?>
 </div>
 </body>
+
+    
 
 
 </html>
