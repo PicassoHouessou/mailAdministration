@@ -1,18 +1,20 @@
 <?php
 $sercice = array(
     'apache2'   =>'apache2' ,
-    'phpfpm'   => 'phpfpm' ,
+    'phpfpm'   => 'php7.2-fpm' ,
     'nginx'   =>    'nginx',
     'postfix'    => 'postfix' ,
-    'dovecot'   =>  'dovecot'
+    'dovecot'   =>  'dovecot' ,
+    'all'       =>  'all'
+    
     ) ;
     
 foreach ( $service as $cle=>$element)
 {
-    if (isset($_POST[$cle])&& ($_POST[$cle]==='start'||$_POST[$cle]==='stop'))
+    if (isset($_POST[$cle])&& ($_POST[$cle]=='restart'||$_POST[$cle]=='stop'))
     {
         $result= 'unknown';
-        system('sudo /scriptService.sh' .$cle.'' .$_POST[$cle]  , $result);
+        system('sudo /scriptService.sh' .$_POST[$cle].' '.$element , $result);
         echo $cle.'|'.$result ;
         
     }

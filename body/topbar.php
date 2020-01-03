@@ -14,7 +14,7 @@
 				        <a class="nav-link" href="index.php?page=service"><i class="fas fa-cog fa-fw" ></i>Service</a>
 				    </li>
 				    <li class="nav-item">
-				    	<a class="nav-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-question" ></i>Apropos</a>
+				    	<a class="nav-link" href="index.php?page=about" tabindex="-1" aria-disabled="true"><i class="fas fa-question" ></i>Apropos</a>
 			      	</li>
     			</ul>			
            

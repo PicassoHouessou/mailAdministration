@@ -33,7 +33,7 @@
             <div class="form-row d-none" id="elementFacultatif">
                 <div class="form-group col-md-6">
                     <label for="nom">Nom </label> 
-                    <input type="tel" placeholder="Nom Ex: Houessou " class="form-control" id="nom" name="nom">
+                    <input type="text" placeholder="Nom Ex: Houessou " class="form-control" id="nom" name="nom">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="prenom">Prénoms</label>

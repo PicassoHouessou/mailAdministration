@@ -27,8 +27,8 @@ if (isset($_POST['id'])&& $_POST['email'])
             $req->closeCursor() ;
             if($db->commit() )
             {
-                $chemin = '/externe/mail/users/'.$don ;
-                system('sudo /scriptSuprimer.sh ' .$chemin);
+                $chemin = '/externe/mail/users/'.$don['maildir'] ;
+                exec('sudo /deleteMail.sh ' .$chemin);
                 $erreur ="MAIL_DELETE" ;                
             }
         }
