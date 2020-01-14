@@ -1,18 +1,5 @@
 <?php
- 
-    require ("constante.php") ;
-
-    if (isset($_GET['error']))
-    {
-        $erreur = retourneErreur($_GET['error']) ;
-        $alert='<div class="alert alert-warning alert-dismissible fade show" role="alert">
-       <h4><strong>Attention Information importante</strong></h4>'.$erreur.'
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>' ;         
-        echo $alert ;       
-    }
+require ("constante.php") ;
 
 $error = "" ;
 function protectionForm($var)
@@ -21,11 +8,11 @@ function protectionForm($var)
 }
 if ( session_status()== PHP_SESSION_ACTIVE && isset($_SESSION['state']) && $_SESSION['state']== true )
 {
+    
     header('Location: index?page=home') ;
 }
 if ( isset($_POST['email']) && isset($_POST['password']))
 {
-    echo"fcgcgfcvghb hjbhubbhhjb";
     sleep(1) ; // On met en pause une seconde ralentir les attaques par brute force
     $emailAdmin = protectionForm($_POST['email']) ;
     //On supprime les retour à la ligne
@@ -37,6 +24,7 @@ if ( isset($_POST['email']) && isset($_POST['password']))
 
     } catch (Exception $e)
     {
+ 
         dye('Erreur : ' .$e->getMessage()) ;
     }
     //On recupere le login et mot de passe dans la base de donnée
@@ -45,8 +33,7 @@ if ( isset($_POST['email']) && isset($_POST['password']))
     'mail' =>  $emailAdmin        
     )) ;
     $donnee = $req1->fetch() ;
-    //On verifie que les identifiants sont corrects
-    $isPaswwordCorrect = password_verify($passwordAdmin,$donnee['password']) ;
+    
     if (!$donnee) // S'ils sont incorrectes
     {  
         $error = "IDENTIFIANTS_INCORRECTS";            
@@ -56,6 +43,8 @@ if ( isset($_POST['email']) && isset($_POST['password']))
     } // On initialise les sessions si bon 
     else 
     {
+        //On verifie que les identifiants sont corrects
+        $isPaswwordCorrect = password_verify($passwordAdmin,$donnee['password']) ;
         if ($isPaswwordCorrect)
         {               
             $_SESSION['state'] = true ;
@@ -64,9 +53,18 @@ if ( isset($_POST['email']) && isset($_POST['password']))
             $_SESSION['prenom'] = $donnee['prenom'];
             $_SESSION['nom'] = $donnee['nom'] ;
             $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'] ; 
+            //Temps de déconnexion automatique du serveur
+            $_SESSION['timeOver'] = time() ;
             $req1->closeCursor() ;
             header('Location: index?page=home') ;
-            exit;       
+            exit;      
+        }
+        else if (!$isPaswwordCorrect)
+        {
+            $error = "IDENTIFIANTS_INCORRECTS";            
+            header ('Location: index?page=loginadmin&error='.$error) ;
+            exit;
+            
         }
     }  
         // On signale qu'on a fini

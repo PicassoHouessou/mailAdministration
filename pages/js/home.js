@@ -16,6 +16,10 @@ var facultatifCheckbox = document.getElementById('facultatif') ;
             }
         }
     ) ;
+//$(function()
+ //{
+    //$('#test').click(function() { $(window).reload ;});
+//});
 //$( function () {
  //   $('#politique').modal('show') ; });
 

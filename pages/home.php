@@ -3,7 +3,7 @@
     
     <section class="col-md-10 offset-md-2"><br>
     <?php
-        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est <strong>". date('Y-m-d')."</strong><br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
+        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est <strong>". date('Y-m-d-s')."</strong><br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
     ?>           
         </p>
     </section>
@@ -274,6 +274,8 @@
           <button type="submit" class="btn btn-primary">Créer le compte</button>
         </form>
         </div>
+    </section>
+
         <!--</div> 
     </section>
     

@@ -29,13 +29,11 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
     $email = str_replace(array("\n","\r",PHP_EOL),'',$email);
     $password = protectionForm($_POST['password']) ;
     $passwordConfirm = protectionForm($_POST['passwordConfirm']) ;
-    //$regMail= "#^[a-z0-9_-]{4,}(@.eneam.da){1}$
     // Nous pensons que ce regex est valide peut etre corrigé pour les emails spéciaux qui refusent de marcher
     //$regMail="#^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]{2,}(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$#" ;
-    $regMail="#^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@([a-zA-Z0-9_]{2,}\.)*(eneam\.da){1}$#" ;    
-    //$regPassword = "#[a-z]+[A-Z]+[0-9]+[\#!|^$;:%~-&\"'`()@[\]{}?+*.-]#" ;
-    //$regPassword = "#(\.*[!@\#$%^&*_`:;,/\()-])(\.*[0-9])(\.*[A-Z])\.{8,150}#" ;
-    //$regPassword = '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/';
+    //Ce regex pour le mail marche mais nous ne pouvons utiliser cela car nous utilisons la chaine avant le @ comme nom des repertoires ce qui va poser problème s'il a éventuellement  des caractères spéciaux puisque le nom d'un répertoire en linux ne peut pas conenir certains caractères :)
+    //$regMail="#^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@([a-zA-Z0-9_]{2,}\.)*(eneam\.da){1}$#" ;  
+    $regMail = "#^[a-z0-9._-]+@([a-z0-9._-])*(eneam\.da){1}$#" ;
     $regPassword = '#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#';
     $regMatricule= "#(\d){4,}$#";
     $regTelephone = "#^(\d){8,}$#" ;
@@ -132,7 +130,6 @@ if ( verifier ($regMail, $email) == false)
     $error = "MAIL_INCORRECT";	     
     header ('Location: index?page=home&error='.$error);
     exit;
-    $etat += 1  ;
 }
 else
 {
@@ -221,7 +218,12 @@ try
         'pays'       => $pays,
         'dateFin'   => $dateFin        
     )) ; 
-    $db->commit() ; 
+    //Si c'est bon on crée le repertoire avec les bons droits d'acces 
+    if ($db->commit())
+    {
+        //exec ('sudo /') ;
+        
+    }
     //S'il a eu un problème avec les transactions on redirige et on signale 
 }
 catch (Exception $e)

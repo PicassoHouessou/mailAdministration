@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-8 offset-md-2">
         <form method="post" action="index?page=ajout_utilisateur" class="col-md-12">
-            <legend><h4>Nous contacter</h4></legend>
+            <legend><h4 id="contacter">Nous contacter</h4></legend>
             <div class="form-row col-md-12">
                 <label for="nom" class="col-md-12">VOTRE NOM</label>
                 <div class="form-group col-md-6">      
@@ -30,3 +30,17 @@
             <p>Je m'appelle Picasso Houessou</p></div>        
     </div>    
 </div>
+
+<?php 
+// Utile pour la page all_mail car renitialise la pagination
+    if ( !empty ($_SESSION['page']))
+        $_SESSION['page'] = NULL ;
+    if ( !empty ($_SESSION['tri']))
+        $_SESSION['tri'] = NULL ;
+    if (!empty ($_SESSION['limite']))
+        $_SESSION['limite'] = NULL ;
+    if ( !empty ($_SESSION['indexPage']))
+        $_SESSION['indexPage'] = NULL ;
+
+
+?>

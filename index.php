@@ -28,13 +28,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta name="viewport" >
-	<meta charset="utf-8">
+	<meta charset="utf-8" name="viewport">
 	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.css">
-	<script src="dist/js/jquery.js"></script>
+	<script src="dist/js/jquery.min.js"></script>
     <script src="dist/js/popper.min.js"></script>
-    <script src="dist/js/bootstrap.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
     
 	<title>Page d'aministration eneam.da</title>
 	<!--<style>
@@ -54,7 +53,28 @@
 <body>
 <div class="container-fluid" >
 <?php
+    //Fonction pour afficher une info d'erreur sur les pages
+    //Doit etre revue pour placer ça dans les fichiers spécifiques des pages
+    if (isset($_GET['error']))
+    {
+        $erreur = retourneErreur($_GET['error']) ;
+        $alert='<div class="alert alertErrorss alert-warning alert-dismissible fade show" role="alert">
+       <h4><strong>Attention Information importante</strong></h4>'.$erreur.'
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>' ;
+        
+        echo $alert ; 
+        echo '<script>window.setTimeout(function() {
+        $(".alertError").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+        }, 10000);  </script>' ;
+    }
     include "body/topbar.php";
+    
+    
 ?>
 <!-- Quand le javasriot est désactivé
 -->

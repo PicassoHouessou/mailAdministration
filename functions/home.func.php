@@ -3,23 +3,19 @@
 require("constante.php") ;
 // verifie si les sessions sont valides sinon redirige. Doit ete appelé sur toutes les pages *.func.php
 verifierSession() ;
+deconnexionAuto() ;
+// Utile pour la page all_mail car renitialise la pagination
+    if (!empty ($_SESSION['page']))
+        $_SESSION['page'] = NULL ;
+    if (!empty ($_SESSION['tri']))
+        $_SESSION['tri'] = NULL ;
+    if (!empty ($_SESSION['limite']))
+        $_SESSION['limite'] = NULL ;
+    if (!empty ($_SESSION['indexPage']))
+        $_SESSION['indexPage'] = NULL ;
 
 function protectionForm($var)
 {
     return htmlspecialchars($var) ;       
 }
-
-
-
-if (isset($_GET['error']))
-{
-    $erreur = retourneErreur($_GET['error']) ;
-    $alert='<div class="alert alert-warning alert-dismissible fade show" role="alert">
-   <h4><strong>Attention Information importante</strong></h4>'.$erreur.'
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>' ;         
-        echo $alert ;       
-    }
 ?>
