@@ -9,7 +9,7 @@ function protectionForm($var)
 if ( session_status()== PHP_SESSION_ACTIVE && isset($_SESSION['state']) && $_SESSION['state']== true )
 {
     
-    header('Location: index?page=home') ;
+    header('Location: index.php?page=home') ;
 }
 if ( isset($_POST['email']) && isset($_POST['password']))
 {
@@ -37,7 +37,7 @@ if ( isset($_POST['email']) && isset($_POST['password']))
     if (!$donnee) // S'ils sont incorrectes
     {  
         $error = "IDENTIFIANTS_INCORRECTS";            
-        header ('Location: index?page=loginadmin&error='.$error);
+        header ('Location: index.php?page=loginadmin&error='.$error);
         exit;
 
     } // On initialise les sessions si bon 
@@ -56,13 +56,13 @@ if ( isset($_POST['email']) && isset($_POST['password']))
             //Temps de déconnexion automatique du serveur
             $_SESSION['timeOver'] = time() ;
             $req1->closeCursor() ;
-            header('Location: index?page=home') ;
+            header('Location: index.php?page=home') ;
             exit;      
         }
         else if (!$isPaswwordCorrect)
         {
             $error = "IDENTIFIANTS_INCORRECTS";            
-            header ('Location: index?page=loginadmin&error='.$error) ;
+            header ('Location: index.php?page=loginadmin&error='.$error) ;
             exit;
             
         }

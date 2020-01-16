@@ -3,14 +3,14 @@
     
     <section class="col-md-10 offset-md-2"><br>
     <?php
-        echo "<p> Bienvenue Monsieur <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. Il est <strong>". date('Y-m-d-s')."</strong><br/>Si vous si vous rencontrez des problème ou constatez des bugs, veuillez bien me contacter sur par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
+        echo "<p> Bienvenue Monsieur/Madame <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. On est aujourd'hui le <strong>". date('d-m-Y')."</strong><br/>Si vous rencontrez des problèmes ou constatez des bugs, veuillez bien me contacter par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
     ?>           
         </p>
     </section>
     <section class="col-md-8 offset-md-2">
         <!--<div class="card"> -->
         <div class="card rounded" style="padding-top: 20px; padding-bottom: 20px;">
-        <form method="post" action="index?page=ajout_utilisateur" class="col-md-12">
+        <form method="post" action="index.php?page=ajout_utilisateur" class="col-md-12">
             <legend><h4>Création rapide de compte email</h4></legend>
             <div class="col-md-12">
                 <div class="form-group">
@@ -269,8 +269,6 @@
                 </div>
                 
             </div>
-
-
           <button type="submit" class="btn btn-primary">Créer le compte</button>
         </form>
         </div>
@@ -314,5 +312,4 @@
 </div>
 <?php
     echo "<script src=\"pages/js/home.js\"></script>" ;
-
 ?>

@@ -62,7 +62,6 @@ if (isset($_POST['id']) && $_POST['email'])
     $email = htmlspecialchars( $_POST['email'] );
     $email = str_replace(array("\n","\r",PHP_EOL),'',$email);
     $email = (string) $email ;
-    
     try
     {
         $db->startTransaction();        
@@ -90,16 +89,16 @@ if (isset($_POST['id']) && $_POST['email'])
             // Si tout est ok on lance le script qui doit supprimer le repertoire de l'utilisateur
             if($db->commit() )
             {
-                $chemin = '/externe/mail/users/'.$don['maildir'] ;
+                $nomRepertoire = $don['maildir'] ;
                 $retour = 1 ;
-                exec('sudo '.$cheminScript.'deleteUserDirectory.sh ' .$chemin , $ligne, $retour);
+                exec('sudo '.$cheminScript.'deleteUserDirectory.sh ' .$nomRepertoire, $ligne, $retour);
                 if ($retour == 0)
                 {
-                    echo $email.'|split|delete' ;                     
+                    echo $email.'|split|DELETE' ;                     
                 }
                 else 
                 {
-                    echo $email.'|split|notdelete' ;                     
+                    echo $email.'|split|NOTDELETE' ;                     
                 }                              
             }
         }
@@ -107,7 +106,7 @@ if (isset($_POST['id']) && $_POST['email'])
     catch (Exception $e)
     {
         $db->rollBack() ; 
-        echo $email.'|split|erreur|split|notdelete' ;
+        echo $email.'|split|ERREUR|split|NOTDELETE' ;
         //exit;
     }
 }

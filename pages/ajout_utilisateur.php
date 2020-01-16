@@ -46,7 +46,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (verifier ($regMatricule, $matricule) == false )
         {
             $error = "MATRICULE_INVALIDE" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;       	
         } 
     }
@@ -57,7 +57,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (verifier ($regTelephone, $telephone) == false )
         {
             $error = "TELEPHONE_INVALIDE" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;       	
         }         
     }
@@ -68,7 +68,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (strlen($pays)>150)
         {
             $error = "PAYS_TROP_LONG" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;            
         }
     }
@@ -79,7 +79,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (strlen($nom)>150)
         {
             $error = "NOM_TROP_LONG" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;            
         }
     }
@@ -90,7 +90,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (strlen($prenom)>150)
         {
             $error = "PRENOM_TROP_LONG" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;            
         }
     }
@@ -101,7 +101,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (verifier ($regDate, $dateFin) == false )
         {
             $error = "DATE_INVALIDE" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;       	
         } 
         $debutDate = explode('-', $dateFin)[0] ;
@@ -110,7 +110,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if ($debutDate > (int) date('Y', strtotime('+6 years')))
         {
             $error = "DATE_TROP_GRAND" ;
-            header ('Location: index?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;
             
         }
@@ -120,7 +120,7 @@ else
 {
     sleep(1) ; // On met en pause une seconde ralentir les attaques par brute force
     $error  = "CHAMPS_VIDES" ;    
-    header('Location:index.php?page=home&error='.$error) ; 
+    header('Location:index.php.php?page=home&error='.$error) ; 
     //On s'assure que le code qui suis ne sera pas exécuté
     exit;        
 }
@@ -128,7 +128,7 @@ else
 if ( verifier ($regMail, $email) == false)
 {
     $error = "MAIL_INCORRECT";	     
-    header ('Location: index?page=home&error='.$error);
+    header ('Location: index.php?page=home&error='.$error);
     exit;
 }
 else
@@ -137,13 +137,13 @@ else
     if ($password != $passwordConfirm) 
     {
         $error = "PASSWORD_INCORRECT" ;
-        header ('Location: index?page=home&error='.$error);
+        header ('Location: index.php?page=home&error='.$error);
         exit ;
     }// si les mot de passes sont les meme ont vérifie leur entropies
     if (verifier ($regPassword, $password) == false )
     {
         $error = "PASSWORD_FAIBLE" ;
-        header ('Location: index?page=home&error='.$error);
+        header ('Location: index.php?page=home&error='.$error);
         exit ;       	
     }   
     else{
@@ -153,7 +153,7 @@ else
         {
             sleep(1) ;
             $error ='PASSWORD_HASH_ERROR';
-            header('Location:index?page=home&error='.$error);
+            header('Location:index.php?page=home&error='.$error);
             exit ;
         }
     }
@@ -168,7 +168,7 @@ $req1->execute (array ('mail' => $email )) ;
 if ($req1->fetch())
 {
     $error ="MAIL_EXIST" ;
-    header ('Location: index?page=home&error'.$error);
+    header ('Location: index.php?page=home&error'.$error);
     exit ;    
 }
 $req1->closeCursor() ;
@@ -220,9 +220,17 @@ try
     )) ; 
     //Si c'est bon on crée le repertoire avec les bons droits d'acces 
     if ($db->commit())
-    {
-        //exec ('sudo /') ;
-        
+    {   
+        $nomRepertoire = $debutMail ;
+        $retour = 1 ;
+        exec('sudo '.$cheminScript.'createUserDirectory.sh ' .$nomRepertoire , $ligne, $retour);
+        if ($retour != 0)      
+        {
+            //Dans le cas où le script n'a pas pu creer le dossier contenant les courriers de l'utilisateur on notifie 
+            $error = 'MAIL_CREATION_SUCCESS_BUT_DIRECTORY_CREATION_NOT' ;
+            header ('Location:index.php?page=home&error='.$error) ;
+            exit ;                     
+        }                                      
     }
     //S'il a eu un problème avec les transactions on redirige et on signale 
 }
@@ -230,13 +238,12 @@ catch (Exception $e)
 {
     $error = 'INSERTION_ERREUR' ;
     $db->rollBack(); //On annule tout et on repasse en autocommit
-    header ('Location:index?page=home&error='.$error) ;
+    header ('Location:index.php?page=home&error='.$error) ;
     exit ;
-    
 }
 //Si ces lignes s'executent c'est qu'il n'a pas eu d'erreurs 
 $error = "MAIL_CREATION_SUCCESS" ;
-header ('Location: index?page=home&error='.$error) ;
+header ('Location: index.php?page=home&error='.$error) ;
 
 ?>
 

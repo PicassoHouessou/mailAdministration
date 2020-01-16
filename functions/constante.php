@@ -66,7 +66,10 @@ function retourneErreur ($var)
             break ;
         case 'MAIL_CREATION_SUCCESS' :
             $retour = "Le nouveau compte a eté bien créé" ;
-            break ;        
+            break ; 
+        case 'MAIL_CREATION_SUCCESS_BUT_DIRECTORY_CREATION_NOT' :
+            $retour = "Le nouveau compte a eté créé. Seulement nous n'avons pas pu créer son répertoire de réception des mails. Ce utilisateur peut toujours se connecter à compte et recevoir des mails." ;
+            break ;
         case 'SESSION_NOT_EXIST':            
             $retour = "Votre session est désactivé" ;
             break ;
@@ -117,14 +120,14 @@ function verifierSession()
     if ( session_status()== PHP_SESSION_DISABLED )
     {
         $error= 'SESSION_NOT_EXIST' ;
-        header ('Location: index?page=loginadmin&error='.$error);
+        header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
     }
     if (session_status()== PHP_SESSION_NONE )
     {
         $error= 'SESSION_NOT_EXIST' ;
         session_destroy() ;
-        header ('Location: index?page=loginadmin&error='.$error);
+        header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;   
 
     }
@@ -133,7 +136,7 @@ function verifierSession()
         $error= 'SESSION_INCORRECT' ;
         $_SESSION[] = array() ;
         session_destroy() ;
-        header ('Location: index?page=loginadmin&error='.$error);
+        header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
 
     }
@@ -142,7 +145,7 @@ function verifierSession()
         $error= 'SESSION_INCORRECT' ;
         $_SESSION[] = array() ;
         session_destroy() ;
-        header ('Location: index?page=loginadmin&error='.$error);
+        header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
     }  
 }
@@ -166,7 +169,7 @@ function verifierAuthenticiteSession()
         // On détruit la session
         $_SESSION = array();
         session_destroy();
-        header('location:index.php?erreur');
+        header('location:index.php.php?erreur');
     }
 
     
@@ -182,7 +185,7 @@ function deconnexionAuto ()
             // On détruit la session
             $_SESSION = array();
             session_destroy();
-            header('location:index.php?page=loginadmin&error='.$error);
+            header('location:index.php.php?page=loginadmin&error='.$error);
             exit ;
         }
         else

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <form method="post" action="index?page=ajout_utilisateur" class="col-md-12">
+        <form method="post" action="index.php?page=ajout_utilisateur" class="col-md-12">
             <legend><h4 id="contacter">Nous contacter</h4></legend>
             <div class="form-row col-md-12">
                 <label for="nom" class="col-md-12">VOTRE NOM</label>
@@ -39,8 +39,8 @@
         $_SESSION['tri'] = NULL ;
     if (!empty ($_SESSION['limite']))
         $_SESSION['limite'] = NULL ;
-    if ( !empty ($_SESSION['indexPage']))
-        $_SESSION['indexPage'] = NULL ;
+    if ( !empty ($_SESSION['index.phpPage']))
+        $_SESSION['index.phpPage'] = NULL ;
 
 
 ?>
