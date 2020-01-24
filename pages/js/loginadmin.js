@@ -12,10 +12,12 @@ var myRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\
     } else
     {        
         emailHelp.innerHTML = "Email invalide";
-          
     } 
                       
 }) ;
+$(function(){
+    $('#loginIcon').addClass('d-none') ;
+});
 /*
 $(window).load (function()
 {

@@ -63,14 +63,11 @@ if ( isset($_POST['email']) && isset($_POST['password']))
         {
             $error = "IDENTIFIANTS_INCORRECTS";            
             header ('Location: index.php?page=loginadmin&error='.$error) ;
-            exit;
-            
+            exit;  
         }
     }  
         // On signale qu'on a fini
         $req1->closeCursor() ;
-    
 }   
-
 
 ?>

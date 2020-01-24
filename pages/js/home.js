@@ -16,6 +16,10 @@ var facultatifCheckbox = document.getElementById('facultatif') ;
             }
         }
     ) ;
+$(function()
+{
+    $('#loginIcon').removeClass('d-none') ;
+});
 //$(function()
  //{
     //$('#test').click(function() { $(window).reload ;});
@@ -29,7 +33,7 @@ var facultatifCheckbox = document.getElementById('facultatif') ;
 
 /*
 
-$(function($){
+$(function(){
     var $facultatif = $('#facultatif') ;
     $facultatif.on('change', function()
     {

@@ -57,7 +57,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (verifier ($regTelephone, $telephone) == false )
         {
             $error = "TELEPHONE_INVALIDE" ;
-            header ('Location: index.php?page=home&error='.$error);
+            header ('Location: index.php?page=home&error='.$etrarror);
             exit ;       	
         }         
     }
@@ -120,7 +120,7 @@ else
 {
     sleep(1) ; // On met en pause une seconde ralentir les attaques par brute force
     $error  = "CHAMPS_VIDES" ;    
-    header('Location:index.php.php?page=home&error='.$error) ; 
+    header('Location:index.php?page=home&error='.$error) ; 
     //On s'assure que le code qui suis ne sera pas exécuté
     exit;        
 }
@@ -220,7 +220,7 @@ try
     )) ; 
     //Si c'est bon on crée le repertoire avec les bons droits d'acces 
     if ($db->commit())
-    {   
+    {   $cheminScript = "/externe/www/html/www.admin.eneam.da/scripts/" ;
         $nomRepertoire = $debutMail ;
         $retour = 1 ;
         exec('sudo '.$cheminScript.'createUserDirectory.sh ' .$nomRepertoire , $ligne, $retour);

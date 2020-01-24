@@ -169,7 +169,7 @@ function verifierAuthenticiteSession()
         // On détruit la session
         $_SESSION = array();
         session_destroy();
-        header('location:index.php.php?erreur');
+        header('location:index.php?erreur');
     }
 
     
@@ -185,7 +185,7 @@ function deconnexionAuto ()
             // On détruit la session
             $_SESSION = array();
             session_destroy();
-            header('location:index.php.php?page=loginadmin&error='.$error);
+            header('location:index.php?page=loginadmin&error='.$error);
             exit ;
         }
         else

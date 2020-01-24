@@ -28,14 +28,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="utf-8" name="viewport">
-	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.css">
+	<meta charset="utf-8" />
+    <meta name="description" content="C'est la page d'administration su serveur SMTP et IMAP du domaine eneam.da. Cette page est destinée aux administrateurs du domaines"/>
+    <meta name="keywords" content="Administration, ENEAM, SMTP , IMAP, Bénin, UAC" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.min.css" />
 	<script src="dist/js/jquery.min.js"></script>
     <script src="dist/js/popper.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
     
-	<title>Page d'aministration eneam.da</title>
+	<title>Page d'aministration su serveur d'envoi et de réception de mails eneam.da</title>
 	<!--<style>
         footer
         {
@@ -78,7 +81,7 @@
 ?>
 <!-- Quand le javasriot est désactivé
 -->
-<noscript> <p class="bg-info text-center" style="font-size: 2rem;">Vous avez désactivé le javascript.  <br/>Activer le si vous voulez une meilleure expérience utilisateur <i class="fas fa-spinner fa-spin"></i></p></noscript>
+<noscript> <p class="bg-info text-center rounded-pill" style="font-size: 2rem;">Vous avez désactivé le javascript.<br/>Activez-le si vous voulez une meilleure expérience utilisateur <i class="fas fa-spinner fa-spin"></i></p></noscript>
 <?php
     include 'pages/'.$page.'.php';
 ?>

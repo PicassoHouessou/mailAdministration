@@ -1,27 +1,44 @@
 $(function()
 {
-    function sendDetail( commande, objet , supplement )
+    function sendDetail( commande, objet)
     {
-        $.post()
-        {
+        commande =commande.trim();
+        objet= objet.trim();
+        commande = encodeURIComponent(commande);
+        objet = encodeURIComponent(objet);
+        $.ajax({
+            url :'pages/traitement.php' ,
+            type: 'POST' ,
+            data: objet+'='+commande ,        
+            dataType : 'text',
+            success: function(data){
+                displayResult (data)
+            }
+        }); 
+        /* Je ne sais pas pourquoi avec post ça ne marche pas    
+         $.post(
             'pages/traitement.php' ,
             {
-                objet : commande
+                objet : commande,
+                cccc:'ddddd'
             },
             function(data){
-                displayResult (data)
+                displayResult (data) ;
             },
             'text'
-        }
+            );
+        */
+        
     }
     function displayResult(reponse)
-    {
+    {   
         if (reponse.length)
         {
             reponse = reponse.split("|") ;
-            var serviceType= reponse[1] ;
-            var serviceState = reponse[2] ;
-            var serviceX = $('#'+serviceType+'Status');
+            var serviceType= reponse[0].trim() ;
+            var serviceState = reponse[1] ;
+            serviceState = serviceState.toUpperCase() ;
+            serviceState = serviceState.trim(); 
             if (serviceType=="all")
             {
                 var tableauStatus = {
@@ -30,8 +47,11 @@ $(function()
                     nginxStatus : 'nginxStatus',
                     postfixStatus : 'postfixStatus' ,
                     dovecotStatus : 'dovecotStatus'    
-                } ;
-                if (serviceState=='restart')
+                } ; 
+                var information = $('#information');
+                var date = new Date() , mois ="" ; 
+                var dateActuelle = 'Le '+date.getDate()+'/'+ (mois = ( date.getMonth()<9 ? '0'+ (date.getMonth()+1) : date.getMonth() + 1)) +'/'+date.getFullYear()+ ' à '+ date.getHours()+'h' +date.getMinutes()+'min'+ date.getSeconds()+'s';
+                if (serviceState=='RESTART')
                 {
                     for ( var i in tableauStatus)
                     {
@@ -41,62 +61,59 @@ $(function()
                             title: 'Actif'                            
                         })
                     }
-                    var toast = '<div id="infoSupression" class="toast" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"> <img src="..." class="rounded mr-2" alt="..."> <strong class="mr-auto">Suppression</strong> <small class="text-muted">Maintenant</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">Tous les services ont bien rédémarré </div></div> ';
-                    $('#information').html(toast) ;
-                    $('#infoSupression').toast('show');
+                    var toast = '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">Tous les services ont bien redémarrés </div></div> ';
+                    information.append(toast) ;
+                    infoSupression = $('.infoSupression').last() ;
+                    infoSupression.toast('show');
+                    $('#informationToolbox').removeClass('d-none');  
+                    information.animate({scrollTop:1000000},1000) ;
                 }
-                else if ( serviceState=='erreur')
+                else if ( serviceState=='ERREUR')
                 {
                     for ( var i in tableauStatus)
                     {
                         $('#'+i).attr({
-                            class:'fas fa-check fa-lg' ,
+                            class:'fas fa-exclamation-triangle fa-lg' ,
                             style: 'cursor: pointer; color: red;',
-                            title: 'Inconnu ou erreur'                            
+                            title: 'Inconnu ou erreur'                             
                         })
                     }
-                    var toast = '<div id="infoSupression" class="toast" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"> <img src="..." class="rounded mr-2" alt="..."> <strong class="mr-auto">Suppression</strong> <small class="text-muted">Maintenant</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body"><p>Une erreur est survenir.Les services n\'ont pas pu rédémarré. veuillez reessayez. Si le problème persiste contactez l\'administrateur</p><p>Code d\'erreur :<strong>XALL0001</strong></p></div></div> ';
-                    $('#information').html(toast) ;
-                    $('#infoSupression').toast('show');
-                    
-                }
-                
-            } else 
+                    var toast = '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body"><p>Une erreur est survenue.Les services n\'ont pas pu redémarrés. veuillez réessayez. Si le problème persiste contactez l\'administrateur</p><p>Code d\'erreur : <strong>XALL0001</strong></p></div></div> ';
+                    information.append(toast) ;  
+                    infoSupression = $('.infoSupression').last() ;
+                    infoSupression.toast('show');
+                    $('#informationToolbox').removeClass('d-none');
+                    information.animate({scrollTop:1000000},1000) ;                    
+                }                
+            } 
+            else 
             {
-                if (serviceState=='restart')
+                var serviceUniqueEtat = $('#'+serviceType+'Status');
+                if (serviceState=='RESTART')
                 {
-                    serviceX.attr ({
+                    serviceUniqueEtat.attr ({
                         class:'fas fa-check fa-lg' ,
                         style: 'cursor: pointer; color: blue;',
                         title: 'Actif'
                     }) ;
                 }
-                else if (serviceState=='stop')
+                else if (serviceState=='STOP')
                 {
-                    serviceX.attr ({
+                    serviceUniqueEtat.attr ({
                         class:'fas fa-stop-circle fa-lg' ,
                         style: 'cursor: pointer; color: red;',
                         title: 'Inactif'
                     }) ;                 
                 }
-                else if(serviceState=='erreur')
+                else if(serviceState=='ERREUR')
                 {
-                    serviceX.attr ({
-                        class:'fas fa-check fa-lg' ,
+                    serviceUniqueEtat.attr ({
+                        class:'fas fa-exclamation-triangle fa-lg' ,
                         style: 'cursor: pointer; color: red;',
                         title: 'Inconnu ou erreur'
                     })  ;           
-                }
-                else //if(serviceState=='unknown')
-                {
-                    serviceX.attr ({
-                        class:'fas fa-check fa-lg' ,
-                        style: 'cursor: pointer; color: red;',
-                        title: 'Inconnu'
-                    })  ;           
-                }
-            }
-            
+                }            
+            }            
         }        
     }
     // On définit la fonction qui s'appelle toutes les 20 secondes pour actuliser les infos
@@ -105,10 +122,10 @@ $(function()
         setTimeout(function(){
             for (var i in tab )
             {
-                sendDetail("status", i ) ;
+                sendDetail("status",i ) ;
             }            
-             verifierEtat(tab) ;            
-        }, 150000) ;       
+            verifierEtat(tab) ;            
+        }, 5000) ;       
     }    
     var tableau = {
         apache2 : 'apache2',
@@ -117,25 +134,109 @@ $(function()
         postfix : 'postfix' ,
         dovecot : 'dovecot'    
     } ;
+    // On lance la fontion d'actualisation
     verifierEtat(tableau);
-    var tabStart= new Array(5), tabStop = new Array(5);
     for (var i in tableau) 
     {
-        tabStart[i] = $('#'+i+'Start');        
-        tabStart[i].on('click', function(){sendDetail("restart", i, i+'Start') ;}); 
+        switch (i)
+        {
+            case 'apache2':
+                $('#apache2Start').on('click', function(){sendDetail("restart","apache2");}); 
+                break;
+            case 'phpfpm':
+                $('#phpfpmStart').on('click', function(){sendDetail("restart", "phpfpm");});
+                break;                
+            case 'nginx':
+                $('#nginxStart').on('click', function(){sendDetail("restart", "nginx");});
+                break;
+            case 'postfix':
+                $('#postfixStart').on('click', function(){sendDetail("restart","postfix");});
+                $('#postfixStop').on('click', function(){sendDetail("stop","postfix");});
+                break;
+            case 'dovecot':
+                $('#dovecotStart').on('click', function(){sendDetail("restart", "dovecot");});
+                $('#dovecotStop').on('click', function(){sendDetail("stop","dovecot");});
+                break;
+            default:
+                // On a pas besoin d'un break
+        } 
+    }
+        /* Au départ j'utilisais cette fonction ensuite j'ai préféré celle avec switch
+        var element = '#'+i+'Start';
+        tabStart[i] = $('#'+i+'Start');   
+        //tabStart[i] = $(element);
+
+        tabStart[i].on('click', function(){sendDetail("restart", i);alert(tabStart[i].attr('id'));}); 
         //On ne doit en aucun cas arreter les services web 
         if ( i!= "apache2" && i!= "nginx" && i != "phpfpm" )
         {
             tabStop[i] = $('#'+i+'Stop');
             tabStop[i].on('click', function(){ sendDetail("stop",i, "" ) ; });            
-        }                
-    }
-    
+        }                 
+    }*/
+    $('#information').draggable(); // Le drag and drop pour les notifications
     var demarrerTous = $('#all') ;    
     demarrerTous.on('click',function()
     {
-        var toast = '<!-- <div style="position: absolute; top: 0; right: 0; min-width:200px;"> --><div id="infoSupression" class="toast" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"> <img src="..." class="rounded mr-2" alt="..."> <strong class="mr-auto">Suppression</strong> <small class="text-muted">Maintenant</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">Tous les services sont en cours de rédémarrage. Veuillez patienter pendant l\'exécution de l\'opération</div><!--</div>--></div> ';
+        var date = new Date() , mois ="" ; 
+        var dateActuelle = 'Le '+date.getDate()+'/'+ (mois = ( date.getMonth()<9 ? '0'+ (date.getMonth()+1) : date.getMonth() + 1)) +'/'+date.getFullYear()+ ' à '+ date.getHours()+'h' +date.getMinutes()+'min'+ date.getSeconds()+'s';
+        var toast = '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">Tous les services sont en cours de redémarrage. Veuillez patienter pendant l\'exécution de l\'opération</div></div> ';
         $('#confirmation').modal('show') ;
-        $('#buttonConfirm').click( function(){ $('#confirmation').modal('hide') ; sendDetail("restart", "all"); $('#information').html(toast) ; $('#infoSupression').toast('show');});
-    });   
+        $('#buttonConfirm').click( function(){ 
+            $('#confirmation').modal('hide') ; 
+            sendDetail("restart", "all");
+            $('#information').append(toast) ;
+            $('#informationToolbox').removeClass('d-none');
+            infoSupression = $('.infoSupression').last() ;
+            infoSupression.toast('show');
+            $('#information').animate({scrollTop:100000},1000) ;
+        });
+        $('#confirmation').on('hidden.bs.modal', function (e){
+            $('#buttonConfirm').off('click');
+            $('#buttonAnnuler').off('click');
+            $(this).off('hidden.bs.modal');
+        });
+    }); 
+    document.getElementById('enregistrerContenuInformation').addEventListener('click', function(){
+        var date = new Date() ;
+        var dateActuelle = date.getDate()+'/'+ (mois = ( date.getMonth()<9 ? '0'+ (date.getMonth()+1) : date.getMonth() + 1)) +'/'+date.getFullYear()+ ' à '+ date.getHours()+'h' +date.getMinutes()+'min';
+        var dateActuelleName = date.getDate()+'_'+ (mois = ( date.getMonth()<9 ? '0'+ (date.getMonth()+1) : date.getMonth() + 1)) +'_'+date.getFullYear()+ '_'+ date.getHours()+'h' +date.getMinutes()+'min';
+        var content =" \
+        ***************************************************************************************** \n \
+        **      Ce fichier a été autogénéré par la page Administration de ENEAM                ** \n \
+        **      Date: "+dateActuelle+"                                                    ** \n \
+        **      Contact: +22995718340 , houessoupicasso@yahoo.fr                               **  \n \
+        **      AUTEUR                                                                         **  \n \
+        ***************************************************************************************** \n \
+        *			* \n \
+        *			* \n \
+        *			* \n \
+        *			*		* \n \
+        ************				 *********  	 *****       **********    **********  	 	 *******  \n \
+        *					*		*				*     *				  *				* 	   **       **  \n \
+        *					*		*   		   *       *			  *				*	  **         **  \n \
+        *					*		*			  ***********	 **********    **********	 **           ** \n \
+        *					*	   	*			 *           *	 *			   *	     	 **           ** \n \
+        *					*		*			*			  *	 *             *			  **         ** \n \
+        *					*		 *********	***************  **********    **********       ********* \n \
+        \n \
+        \n \
+        **********************************************************************************\n";
+        var filename = "Resume_eneam.da_"+dateActuelleName+".txt";
+        var contentenuDebut= content ;
+        var i=0 ;
+        $('.infoSupression').each(function(){
+            content += ' Opération '+ (i++)+' : '+ $(this).text()+'\n\n' ;
+
+        }) ;
+        var blob = new Blob([content], {
+            type: "text/plain;charset=utf-8"
+        });
+        saveAs(blob, filename);
+        content="";
+    });
+    $('#viderContenuInformation').on('click', function(){
+        $('.infoSupression').remove(); 
+        $('#informationToolbox').addClass('d-none');
+    });
 });

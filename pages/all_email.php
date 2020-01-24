@@ -146,9 +146,9 @@ while ($don= $req->fetch())
                         <strong>Expire : </strong><?php echo $don['date_fin'] ; ?><br></p>                 
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-secondary supprime" id="<?php echo  $don['id'];?>"><i class="fas fa-user-times "></i></button>
-                            <button type="button" class="btn btn-secondary"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn mail btn-secondary"><a href="mailto:<?php echo $don['email'] ; ?>" class="text-light"><i class="fas fa-mail-bulk" ></i></a></button>                            
+                            <button type="button" class="btn btn-secondary supprime" id="<?php echo $don['id'];?>" title="Cliquer pour supprimer le compte <?php echo $don['email'] ; ?>"  ><i class="fas fa-user-times "></i></button>
+                            <button type="button" class="btn btn-secondary" title="Cliquer pour éditer le compte <?php echo $don['email'] ; ?>"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn mail btn-secondary" title="Cliquer pour joindre le compte <?php echo $don['email'] ; ?>"><a href="mailto:<?php echo $don['email'] ; ?>" class="text-light"><i class="fas fa-mail-bulk" ></i></a></button>                            
                         </div>
                     </div>
                 </div>                
@@ -207,15 +207,21 @@ if ($erreurSuppression="MAIL_DELETE")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Non, annuler</button>
-                <button type="button" class="btn btn-primary" id="buttonConfirm">Rédémarrer</button>
+                <button type="button" class="btn btn-danger" id="buttonConfirm">Oui, supprimer</button>
             </div>
         </div>
     </div>
 </div> 
-<div aria-live="polite" id="information" aria-atomic="true" style="position:fixed; bottom: 5px; right:5px; min-height: 200px; ">
+<div aria-live="polite" id="information" class="overflow-auto" aria-atomic="true" style="position:fixed; bottom: 5px; right:5px; min-height: 200px; max-height:83%; ">
   <!-- Position it -->  
+    <div class="text-primary row d-none" id="informationToolbox" style="position: fixed ; bottom:5px;" >
+        <div id="viderContenuInformation" title="cliquer pour vider le contenu"><i class="fas fa-trash fa-lg col-md-6"  style="cursor:pointer;"></i></div>
+        <div id="enregistrerContenuInformation" title="cliquer pour enregistrer le contenu"><i class="fas fa-save fa-lg col-md-6"  style="cursor:pointer;"></i></div>
+    </div>
 </div>
 <?php
+    echo "<script src=\"pages/js/jquery-ui.min.js\"></script> <br>" ;
+    echo "<script src=\"pages/js/FileSaver.min.js\"></script> <br>" ;
     echo "<script src=\"pages/js/all_email.js\"></script>" ;
     echo "<br/>";
 ?>

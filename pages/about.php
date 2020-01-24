@@ -23,13 +23,16 @@
                 <label for="message">MESSAGE</label>
                 <textarea class="form-control" id="message" name="message" placeholder="Entrez votre message ou remarques"></textarea>       
             </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
         </form>
     </div>
+    <!--
     <div class="col-md-12">
         <div>
             <p>Je m'appelle Picasso Houessou</p></div>        
     </div>    
 </div>
+-->
 
 <?php 
 // Utile pour la page all_mail car renitialise la pagination
@@ -39,8 +42,8 @@
         $_SESSION['tri'] = NULL ;
     if (!empty ($_SESSION['limite']))
         $_SESSION['limite'] = NULL ;
-    if ( !empty ($_SESSION['index.phpPage']))
-        $_SESSION['index.phpPage'] = NULL ;
+    if ( !empty ($_SESSION['indexPage']))
+        $_SESSION['indexPage'] = NULL ;
 
 
 ?>
