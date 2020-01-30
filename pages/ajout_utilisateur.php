@@ -230,7 +230,18 @@ try
             $error = 'MAIL_CREATION_SUCCESS_BUT_DIRECTORY_CREATION_NOT' ;
             header ('Location:index.php?page=home&error='.$error) ;
             exit ;                     
-        }                                      
+        }           
+        //Envoi du premier mail
+        $to      = $email;
+        $subject = 'Compte créé avec succès ';
+        $message = 'Bonjour. L\'équipe d\'ENEAM vous souhaite la bienvenue.\r\n Vous pouvez envoyez et recevoir des courriers.\r\n Ne répondez pas à ce message. Cordialement ';
+        // Dans le cas où nos lignes comportent plus de 70 caractères, nous les coupons en utilisant wordwrap()
+        $message = wordwrap($message, 70, "\r\n");
+        $headers = 'From: admin@eneam.da' . "\r\n" .
+        'Reply-To: admin@eneam.da' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $subject, $message, $headers);
     }
     //S'il a eu un problème avec les transactions on redirige et on signale 
 }

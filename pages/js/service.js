@@ -31,7 +31,7 @@ $(function()
         
     }
     function displayResult(reponse)
-    {   
+    {  
         if (reponse.length)
         {
             reponse = reponse.split("|") ;
@@ -59,7 +59,7 @@ $(function()
                             class:'fas fa-check fa-lg' ,
                             style: 'cursor: pointer; color: blue;',
                             title: 'Actif'                            
-                        })
+                        }) ;
                     }
                     var toast = '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">Tous les services ont bien redémarrés </div></div> ';
                     information.append(toast) ;
@@ -76,7 +76,7 @@ $(function()
                             class:'fas fa-exclamation-triangle fa-lg' ,
                             style: 'cursor: pointer; color: red;',
                             title: 'Inconnu ou erreur'                             
-                        })
+                        }) ;
                     }
                     var toast = '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body"><p>Une erreur est survenue.Les services n\'ont pas pu redémarrés. veuillez réessayez. Si le problème persiste contactez l\'administrateur</p><p>Code d\'erreur : <strong>XALL0001</strong></p></div></div> ';
                     information.append(toast) ;  
@@ -120,10 +120,18 @@ $(function()
     function verifierEtat(tab)
     {
         setTimeout(function(){
+            /*
+            sendDetail("status", "apache2");
+            sendDetail("status", "phpfpm");
+            sendDetail("status" , "nginx");
+            sendDetail("status" , "postfix");
+            sendDetail("status" , "dovecot");
+            */
             for (var i in tab )
             {
                 sendDetail("status",i ) ;
-            }            
+            }          
+            
             verifierEtat(tab) ;            
         }, 5000) ;       
     }    
@@ -184,12 +192,14 @@ $(function()
         $('#confirmation').modal('show') ;
         $('#buttonConfirm').click( function(){ 
             $('#confirmation').modal('hide') ; 
-            sendDetail("restart", "all");
+            sendDetail("restart","all");
             $('#information').append(toast) ;
             $('#informationToolbox').removeClass('d-none');
             infoSupression = $('.infoSupression').last() ;
             infoSupression.toast('show');
             $('#information').animate({scrollTop:100000},1000) ;
+            //A la fin on supprime cet evenement
+            $(this).off('click');
         });
         $('#confirmation').on('hidden.bs.modal', function (e){
             $('#buttonConfirm').off('click');

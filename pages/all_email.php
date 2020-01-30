@@ -94,8 +94,8 @@
     $req = $db->prepare('SELECT SQL_CALC_FOUND_ROWS `virtual_users`.`id` AS id , `email` , `nom`, `prenom`, `matricule`, `telephone`, `pays`, `date_fin` FROM `virtual_users` INNER JOIN `virtual_users_infos` ON `virtual_users`.`id`= `virtual_users_infos`.`virtual_user_id` ORDER BY :tri DESC LIMIT :limite OFFSET :debut  ');
     $req->bindValue('tri',$tri);
     $req->bindValue('limite',$limite, PDO::PARAM_INT);
-    $req->bindValue('debut',$debut, PDO::PARAM_INT);
-    $req->execute () ;
+    $req->bindValue('debut',$debut, PDO::PARAM_INT) ;
+    $req->execute() ;
     //On recupere le nombre total d'elements dans la base de donnée
     $resultFoundRows = $db->query ('SELECT found_rows()');
     $nombreResultat = $resultFoundRows->fetchColumn();

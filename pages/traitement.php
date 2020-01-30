@@ -17,7 +17,7 @@ $service = array(
     ) ;  
 foreach ( $service as $cle=>$element)
 {
-    if (isset($_POST[$cle]) && ($_POST[$cle]=='restart'||$_POST[$cle]=='stop'))
+    if (isset($_POST[$cle]) &&  ( $_POST[$cle]=='restart' || $_POST[$cle]=='stop' ) )
     {
         $result= 1;
         $_POST[$cle] = escapeshellcmd($_POST[$cle] ); // en realité inutile mais on fait ça qu'en meme l'ecces de sécurité tue pas

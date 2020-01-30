@@ -11,10 +11,10 @@
     <div class="col-md-3 col-xm-6 text-left">
         <h4> Business Plans </h4>
         <ul class="list-unstyled">
-            <li><a href="https://www.facebook.com/picasso.houessou.5" >Nous confier un projet</a></li>
-            <li><a href="https://github.com/PicassoHouessou">Monter une affaire</a></li>
-            <li><a href="https://www.alinkka.com">Découvrez nos formations </a></li>
-            <li><a href="https://github.com/PicassoHouessou"></a></li>            
+            <li><a href="http://www.facebook.com/picasso.houessou.5" >Nous confier un projet</a></li>
+            <li><a href="http://github.com/PicassoHouessou">Monter une affaire</a></li>
+            <li><a href="http://www.alinkka.com">Découvrez nos formations </a></li>
+            <li><a href="http://github.com/PicassoHouessou"></a></li>            
         </ul>
     </div>
     <div class="col-md-3 col-xm-6 text-left">
