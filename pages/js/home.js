@@ -1,5 +1,4 @@
 // JavaScript Document
-
 var facultatifCheckbox = document.getElementById('facultatif') ;
     facultatifCheckbox.addEventListener('change', 
         function ()
@@ -25,7 +24,7 @@ $(function()
     //$('#test').click(function() { $(window).reload ;});
 //});
 //$( function () {
- //   $('#politique').modal('show') ; });
+//   $('#politique').modal('show') ; });
 
 //Read more: https://javarevisited.blogspot.com/2014/11/difference-between-jquery-document-ready-vs-Javascript-window-onload-event.html#ixzz69bXNWyAB
 //var loginIcon= document.getElementById('loginIcon');

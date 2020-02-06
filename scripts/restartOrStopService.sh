@@ -18,7 +18,8 @@ service[nginx]="nginx"
 service[postfix]="postfix"
 service[dovecot]="dovecot"
 service[phpfpm]="php7.2-fpm"
-
+#service[spamassassin]="spamassassin"
+#service[vsftpd]="vsftpd"
 serviceValeur="none" # utile pour  la fonction 
 #On initialise retour à 1 c'est à dire echec 
 retour=1

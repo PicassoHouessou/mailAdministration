@@ -1,4 +1,4 @@
-<footer class="row bg-dark " style="margin-top: 200px; min-height: 150px; padding-top: 30px;" >
+<footer class="row "  >
     <div class="col-md-3 col-xm-6 text-left">
         <h4>A propos, Extra </h4>
         <ul class="list-unstyled">
@@ -22,7 +22,6 @@
         <ul class="list-unstyled">
             <li><a href="#">Politique des cookies</a></li>
             <li><a href="#">Politique des données</a></li>
-            <li><a href="#"></a></li>
             <li><a href="#">Copyright</a></li>            
         </ul>
     </div>
@@ -45,5 +44,5 @@
             </a> -->
         </p>
     </div>
-    <div class="col-md-12 "><h4 class="text-primary font-weight-normal text-muted text-center col-md-12">Fait par Picasso Houessou aka Yacamazuka Tout droit réservé Janvier 2020 <i class="fas fa-copyright"></i></h4></div>		 		
+    <div class="col-md-12 "><h6 class="text-primary font-weight-normal text-muted text-center col-md-12" style="color:white;"><i class="fas fa-copyright"></i> <a href="mailto:houessoupicasso@yahoo.fr" class="text-muted">Picasso Houessou</a>  All Rights Reserved, Janvier 2020 </h6></div>		 		
 </footer>

@@ -57,7 +57,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwo
         if (verifier ($regTelephone, $telephone) == false )
         {
             $error = "TELEPHONE_INVALIDE" ;
-            header ('Location: index.php?page=home&error='.$etrarror);
+            header ('Location: index.php?page=home&error='.$error);
             exit ;       	
         }         
     }

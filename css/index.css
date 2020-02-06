@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Megalopolis';
+    src: url('MegalopolisExtra-Regular.eot') format('eot'),
+    url('MegalopolisExtra-Regular.woff') format('woff'),
+    url('MegalopolisExtra-Regular.woff2') format('woff2'),
+    url('MegalopolisExtra-Regular.otf') format ('otf')   ;
+}
+footer{
+    margin-top : 260px;
+    padding-top: 40px;
+    /* background-color:#333333; */
+    background-color: #04091e;
+    min-height: 280px;
+}
+footer p a , footer li a {
+  font-family: 'Megalopolis' , Arial, serif;
+  font-style: normal;
+  color: white; 
+}
+footer h4{
+  padding-bottom: 6px;
+}
+footer ul li{
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+    /*  Le top bar
+*/
+.nav-item:hover
+{
+    border-bottom: 3px solid red ;
+    
+}
+.nav-link:hover {
+  
+   color: #48a200 ;
+}
+.logo{
+    text-align: center ;
+    /** color: #0a59a4; */
+}
+#deconnecte:hover {
+    color: #0a59a4 ;
+}
+header{ background-color: #104b66 ;}
+header h2 a {color:#fae413 ;}
+header h2 a:hover {color: #48a200 ;text-decoration: none ;}
+header li a {color:white ; }
+/*
+header li a {color:#f1d914; #f8ad32 ;}
+ header a {color:#f1d914;} **/
+
+/* Page home*/
+.home button{
+    background-color: #084561 !important ;
+    
+}
+
+
+
+/* Page all_email */
+
+.all_email .boutonTri button, .all_email .card-body button{
+    background-color : #084561 ;
+}
+/* Page about */
+
+.about button {
+    background-color : #084561 ;
+}

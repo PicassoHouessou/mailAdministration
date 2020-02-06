@@ -27,8 +27,7 @@ $(function()
             },
             'text'
             );
-        */
-        
+        */        
     }
     function displayResult(reponse)
     {  
@@ -46,7 +45,9 @@ $(function()
                     phpfpmStatus :'phpfpmStatus', 
                     nginxStatus : 'nginxStatus',
                     postfixStatus : 'postfixStatus' ,
-                    dovecotStatus : 'dovecotStatus'    
+                    dovecotStatus : 'dovecotStatus' /*
+                    spamassassin: 'spamassassinStatus',
+                    vsftpd       : 'vsftpdStatus'   */
                 } ; 
                 var information = $('#information');
                 var date = new Date() , mois ="" ; 
@@ -130,17 +131,18 @@ $(function()
             for (var i in tab )
             {
                 sendDetail("status",i ) ;
-            }          
-            
+            }         
             verifierEtat(tab) ;            
-        }, 5000) ;       
+        }, 10000) ;       
     }    
     var tableau = {
         apache2 : 'apache2',
         phpfpm :'phpfpm', 
         nginx : 'nginx',
         postfix : 'postfix' ,
-        dovecot : 'dovecot'    
+        dovecot : 'dovecot' /*
+        spamassassin: 'spamassassin',
+        vsftpd       : 'vsftpd' */
     } ;
     // On lance la fontion d'actualisation
     verifierEtat(tableau);
@@ -164,7 +166,15 @@ $(function()
             case 'dovecot':
                 $('#dovecotStart').on('click', function(){sendDetail("restart", "dovecot");});
                 $('#dovecotStop').on('click', function(){sendDetail("stop","dovecot");});
+                break;/*
+            case 'spamassassin':
+                $('#spamassassinStart').on('click', function(){sendDetail("restart","spamassassin");});
+                $('#spamassassinStop').on('click', function(){sendDetail("stop","spamassassin");});
                 break;
+            case 'vsftpd':
+                $('#vsftpdStart').on('click', function(){sendDetail("restart", "vsftpd");});
+                $('#vsftpdStop').on('click', function(){sendDetail("stop","vsftpd");});
+                break;*/
             default:
                 // On a pas besoin d'un break
         } 

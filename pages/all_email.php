@@ -1,4 +1,5 @@
-<div class="row">
+ 
+<div class="row all_email">
     
     <?php
     $page = (!empty($_SESSION['page']) ? $_SESSION['page'] : 1) ;
@@ -111,7 +112,7 @@
     ?>
     <div class="col-md-12"> 
         <h2 class="d-inline-flex col-md-3">Trier par</h2>
-        <div class="col-md-8 btn-group" role="group" aria-label="Basic example">
+        <div class="col-md-8 btn-group boutonTri" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary boutonFiltre <?php if ($tri=="`virtual_users_infos`.`nom`") echo ' bg-success';?>" id="triNom"><a href="index.php?page=all_email&amp;tri=nom" class="text-light">Nom</a></button>
             <button type="button" class="btn btn-secondary boutonFiltre <?php if ($tri=="`virtual_users_infos`.`prenom`") echo ' bg-success';?>" id="triPrenom"><a href="index.php?page=all_email&amp;tri=prenom" class="text-light">Prenoms</a></button>
             <button type="button" class="btn btn-secondary boutonFiltre <?php if ($tri=="`virtual_users_infos`.`matricule`") echo ' bg-success';?>" id="triMatricule"><a href="index.php?page=all_email&amp;tri=matricule" class="text-light">Matricule</a></button>
@@ -206,7 +207,7 @@ if ($erreurSuppression="MAIL_DELETE")
                 <p>Etes vous sur de vouloir supprimer ce compte ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non, annuler</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color : #084561 ;">Non, annuler</button>
                 <button type="button" class="btn btn-danger" id="buttonConfirm">Oui, supprimer</button>
             </div>
         </div>

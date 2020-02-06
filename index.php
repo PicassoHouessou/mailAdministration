@@ -1,12 +1,6 @@
 <?php
     //Initialisation des sessions
     session_start() ;
-    /* $_SESSION['state'] = false ;
-    $_SESSION['email'] = NULL;
-    $_SESSION['prenom'] = NULL;
-    $_SESSION['nom'] = NULL ;
-    $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'] ;
-    */
 ?>
 <?php
 	$pages = scandir('pages/');
@@ -24,7 +18,6 @@
 		include 'functions/'.$page.'.func.php';
 	}
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -34,24 +27,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="dist/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="icon" href="img/asset/favicon.ico" type="image/x-icon" />
 	<script src="dist/js/jquery.min.js"></script>
     <script src="dist/js/popper.min.js"></script>
     <script src="dist/js/bootstrap.min.js"></script>
-    
 	<title>Page d'aministration su serveur d'envoi et de réception de mails eneam.da</title>
-	<!--<style>
-        footer
-        {
-            margin-top: 400px; 
-            background-color: aquamarine;
-        }
-        .container-fuilder
-        {
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-    </style>
--->
 </head>
 <body>
 <div class="container-fluid" >
@@ -66,8 +47,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-        </div>' ;
-        
+        </div>' ;        
         echo $alert ; 
         echo '<script>window.setTimeout(function() {
         $(".alertError").fadeTo(500, 0).slideUp(500, function(){
@@ -75,13 +55,10 @@
         });
         }, 10000);  </script>' ;
     }
-    include "body/topbar.php";
-    
-    
+    include "body/topbar.php";    
 ?>
-<!-- Quand le javasriot est désactivé
--->
-<noscript> <p class="bg-info text-center rounded-pill" style="font-size: 2rem;">Vous avez désactivé le javascript.<br/>Activez-le si vous voulez une meilleure expérience utilisateur <i class="fas fa-spinner fa-spin"></i></p></noscript>
+<!-- Quand le javasriot est désactivé 
+<noscript> <p class="bg-info text-center rounded-pill" style="font-size: 2rem;">Vous avez désactivé le javascript.<br/>Activez-le si vous voulez une meilleure expérience utilisateur <i class="fas fa-spinner fa-spin"></i></p></nosscript>-->
 <?php
     include 'pages/'.$page.'.php';
 ?>

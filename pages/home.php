@@ -1,11 +1,8 @@
-
-<div class="row" style="margin-bottom: 200px;">   
-    
+<div class="row home" style="margin-bottom: 200px;">   
     <section class="col-md-10 offset-md-2"><br>
     <?php
         echo "<p> Bienvenue Monsieur/Madame <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. On est aujourd'hui le <strong>". date('d-m-Y')."</strong><br/>Si vous rencontrez des problèmes ou constatez des bugs, veuillez bien me contacter par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
-    ?>           
-        </p>
+    ?>  </p>
     </section>
     <section class="col-md-8 offset-md-2">
         <!--<div class="card"> -->
@@ -56,7 +53,7 @@
                     <div class="form-group col-md-3">
                         <label for="pays">Pays</label>
                         <select name="pays" class="form-control" id="pays">
-                            <optgroup label="Afrique 54pays">Afrique</option>                    
+                            <optgroup label="Afrique 54pays">                  
                                 <option value="Afrique du Sud">Afrique du Sud</option>
                                 <option value="Algérie">Algérie</option>
                                 <option value="Angola">Angola</option>
@@ -274,11 +271,11 @@
         </div>
     </section>
     
-    
-        <!--</div> 
+    <!--
+        </div> 
     </section>
-    
-        < div class="modal" data-backdrop="static" tabindex="-1" role="dialog" id="politique">        
+    -->
+        <div class="modal" data-backdrop="static" tabindex="-1" role="dialog" id="politique">        
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -290,7 +287,7 @@
                     <div class="modal-body">
                     <p> Soyez la bienvenue sur la page d'administration du serveur de mail. Nous n'utilisons pas du tout les cookies. L'utilisation de cette plateforme est sujette à plusieurs conditions que vous approuvez explicitement.</p>
                     <p>
-                         <h6 class="font-weight-bold">Nous déclinons toutes responsabilité à la mauvaise utilisation  </h6>
+                         <h6 class="font-weight-bold">Nous déclinons toutes responsabilité à la mauvaise utilisation</h6>
                          En effet vous etes responsables de l'utilisation que vous faites de ce outils. De ce fait notre équipe ne peut pas etre tenu responsable de vos agissements.   
                     </p>
                     <p>
@@ -308,8 +305,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    -->
+        </div>    
 </div>
 <?php
     echo "<script src=\"pages/js/home.js\"></script>" ;

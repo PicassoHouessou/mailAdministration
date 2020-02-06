@@ -1,5 +1,17 @@
-<div class="row">   
-    
+<style>
+
+#all, tr th{
+    background-color : #084561 ;
+}
+#all:hover{
+    background-color : #48a200 ;
+}
+/*
+th{
+    background-color : #04091e; 
+}*/
+</style>
+<div class="row">       
     <table class="table table-bordered col-md-12">
         <caption style="caption-side:top; font-size: 2em; ">Tous les services </caption>
         <thead class="table-dark">
@@ -46,7 +58,21 @@
                 <td><i id="dovecotStatus" class="fas fa-check fa-lg" style="color: blue;" title="Actif"></i></td>
                 <td style=" text-align: center;" data-toggle="tooltip" title="cliquer pour redemarrer"><i id="dovecotStart" class="fas fa-sync-alt fa-lg" style="cursor: pointer; color: blue;"></i></td>
                 <td style="text-align: center; " data-toggle="tooltip" title="cliquer pour arreter"><i id="dovecotStop" class="fas fa-stop-circle fa-lg" style="cursor: pointer; color: red;"></i></td>               
-            </tr>            
+            </tr><!--
+            <tr id="spamassassin" class="text-center">
+                <td class="font-weight-bold">Spamassassin</td>
+                <td>Service  anti spams</td>
+                <td><i id="spamassassinStatus" class="fas fa-check fa-lg" style="color: blue;" title="Actif"></i></td>
+                <td style=" text-align: center;" data-toggle="tooltip" title="cliquer pour redemarrer"><i id="spamassassinStart" class="fas fa-sync-alt fa-lg" style="cursor: pointer; color: blue;"></i></td>
+                <td style="text-align: center; " data-toggle="tooltip" title="cliquer pour arreter"><i id="spamassassinStop" class="fas fa-stop-circle fa-lg" style="cursor: pointer; color: red;"></i></td>               
+            </tr>
+            <tr id="vsftpd" class="text-center">
+                <td class="font-weight-bold">VSFTPD </td>
+                <td>Serveur FTP </td>
+                <td><i id="vsftpdStatus" class="fas fa-check fa-lg" style="color: blue;" title="Actif"></i></td>
+                <td style=" text-align: center;" data-toggle="tooltip" title="cliquer pour redemarrer"><i id="vsftpdStart" class="fas fa-sync-alt fa-lg" style="cursor: pointer; color: blue;"></i></td>
+                <td style="text-align: center; " data-toggle="tooltip" title="cliquer pour arreter"><i id="vsftpdStop" class="fas fa-stop-circle fa-lg" style="cursor: pointer; color: red;"></i></td>               
+            </tr>        -->    
         </tbody>            
     </table>
     <div class="col-md-12"><button id="all" type="button" class="col-md-4 offset-md-4 btn btn-secondary btn-lg text-center">Redémarrer tous les services</button></div>
