@@ -35,7 +35,7 @@
 	<title>Page d'aministration su serveur d'envoi et de réception de mails eneam.da</title>
 </head>
 <body>
-<div class="container-fluid" >
+<div class="container-fluid" style="background-color: #ebedef !important;">
 <?php
     //Fonction pour afficher une info d'erreur sur les pages
     //Doit etre revue pour placer ça dans les fichiers spécifiques des pages

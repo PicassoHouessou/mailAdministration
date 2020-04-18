@@ -1,4 +1,4 @@
-<div class="row home" style="margin-bottom: 200px;">   
+<div class="row home" style="margin-bottom: 200px;" >   
     <section class="col-md-10 offset-md-2"><br>
     <?php
         echo "<p> Bienvenue Monsieur/Madame <strong>".$_SESSION['prenom']." ".$_SESSION['nom']. "</strong> sur la plateforme d'aministration. On est aujourd'hui le <strong>". date('d-m-Y')."</strong><br/>Si vous rencontrez des problèmes ou constatez des bugs, veuillez bien me contacter par mail <a href=\"mailto:houessoupicasso@yahoo.fr\">Picasso Houessou</a>" ;      
@@ -271,6 +271,61 @@
         </div>
     </section>
     
+    <?php
+    /*
+    if(isset($_SESSION['email']) && $_SESSION['email']== 'master@eneam.da') {
+    ?>
+    <section class="col-md-8 offset-md-2" style="margin-top:20px;">
+    <div class="card rounded" style="padding-top: 20px; padding-bottom: 20px;">
+        <form method="post" action="index.php?page=ajout_utilisateur" class="col-md-12">
+            <legend><h4>Création de compte administrateur</h4></legend>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="exemple@eneam.da" required>
+                </div>
+                <div class="form-group">
+                    <input type="password"  name="Apassword" class="form-control" id="exampleInputPassword1" placeholder="********************************************" required>
+                    <small id="emailPassword" class="form-text text-muted">Doit contenir au moins 8 caractères, une lettre majuscule, un chiffre et un caractère spécial !@&#$%^*-.</small>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password"  name="ApasswordConfirm" class="form-control" id="exampleInputPassword2" placeholder="********************************************" required>
+                    <small id="emailPassword2" class="form-text text-muted">
+                    Veuillez confirmer le mot de passe</small>
+                </div>   
+                <div class="form-row">        
+                    <div class="form-group col-md-6">
+                        <label for="Anom">Nom </label> 
+                        <input type="text" placeholder="Nom Ex: Houessou " class="form-control" id="Anom" name="Anom">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="Aprenom">Prénoms</label>
+                        <input type="text" id="Aprenom" name="Aprenom" placeholder="Prénoms Ex: Paul Karl" class="form-control">                    
+                    </div>
+                    <!--<div class="form-row">    -->                 
+                        <div class="form-group col-md-3">
+                            <label for="Atelephone">Numéro de téléphone</label>
+                            <input type="tel" placeholder="Numero de telephone" class="form-control" id="Atelephone" name="Atelephone">  
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="facultatif" name="facultatif">
+                                <label class="form-check-label" for="facultatif">Changer mot de passe lors de la premiere connexion</label>
+                            </div>
+                            
+                        </div>
+
+                   <!-- </div> --> 
+                </div>
+            </div>
+          <button type="submit" class="btn btn-primary">Créer le compte</button>
+        </form>
+        </div>
+    </section>
+    <?php
+    } 
+    */
+    ?>
     <!--
         </div> 
     </section>

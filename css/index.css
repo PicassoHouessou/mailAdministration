@@ -1,10 +1,15 @@
 @font-face {
+    font-family: 'SourceSansPro';
+    src: url('SourceSansPro-Regular.otf') format ('otf')   ;
+}
+@font-face {
     font-family: 'Megalopolis';
     src: url('MegalopolisExtra-Regular.eot') format('eot'),
     url('MegalopolisExtra-Regular.woff') format('woff'),
     url('MegalopolisExtra-Regular.woff2') format('woff2'),
     url('MegalopolisExtra-Regular.otf') format ('otf')   ;
 }
+
 footer{
     margin-top : 260px;
     padding-top: 40px;
@@ -12,6 +17,11 @@ footer{
     background-color: #04091e;
     min-height: 280px;
 }
+/*
+body {
+    font-family:'SourceSansPro' ;
+}
+*/
 footer p a , footer li a {
   font-family: 'Megalopolis' , Arial, serif;
   font-style: normal;
@@ -52,7 +62,11 @@ header li a {color:#f1d914; #f8ad32 ;}
  header a {color:#f1d914;} **/
 
 /* Page home*/
-.home button{
+.standardBouton{
+    background-color: #084561 !important ;
+}
+
+.home button {
     background-color: #084561 !important ;
     
 }

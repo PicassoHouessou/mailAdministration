@@ -36,8 +36,8 @@ form p a:hover{
 }
 </style>
 
-<!-- Ce formulaire s'appelle elle meme ensuite si toutes les verifications sont ok elle redirige à la page d'accueil  OBSOLETE  --> 
-<div class="row loginAdmin"> 
+<!-- Ce formulaire s'appelle lui meme ensuite si toutes les verifications sont ok elle redirige à la page d'accueil  OBSOLETE  --> 
+<div class="row loginAdmin" > 
     <form method="post" action="index.php?page=loginadmin" class="col-md-5 offset-md-3">
         <legend >Connexion Administrateur</legend>
         <div class="form-group">
@@ -54,10 +54,44 @@ form p a:hover{
         <div class="form-group">    
             <input type="submit" value="se connecter" class="btn btn-warning" id="btn_connecter">
         </div>
-        <p><a href="#">Mot de passe oublié ?</a></p>
+        <p><a href="#" id="forgetPassword" data-toggle="modal" data-target="#myModal">Mot de passe oublié ?</a></p>
        
     </form>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Veuillez contacter l'administrateur maitre</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+/*
+$(function()
+{
+    $('')
+
+
+});
+
+*/
+</script> 
 <?php
     echo "<script src=\"pages/js/loginadmin.js\"></script>" ;
 ?>

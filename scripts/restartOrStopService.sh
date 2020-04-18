@@ -1,15 +1,12 @@
 #!/bin/bash
+#SYNOPSYS restartOrStopService [restart|stop] [service|all]
 #Pour redemarrer les services  recoit start ou stop ou restart ou plus les parametres services
 #Ici nous considerons que start est égal à restart
-#OPTIONS 
-#	
-#	
-#COMMAND
-#	all
+#DETAILS
+#	all tous les services
 #	start demarrer le service
 # 	stop arreter le service
 #	restart redemarrer le service
-#
 #Dans le cas ou on n'a pas envoyé de paramètre on redemarre tous les service 
 
 declare -A service

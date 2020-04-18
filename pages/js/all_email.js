@@ -19,6 +19,7 @@ $(function()
     })();
     function displayResult(reponse)
     {
+       
         if (reponse.length)
         {
             reponse = reponse.split("|split|") ;
@@ -30,6 +31,43 @@ $(function()
             var dateActuelle = 'Le '+date.getDate()+'/'+ (mois = ( date.getMonth()<9 ? '0'+ (date.getMonth()+1) : date.getMonth() + 1)) +'/'+date.getFullYear()+ ' à '+ date.getHours()+'h' +date.getMinutes()+'min'+ date.getSeconds()+'s';
             var toast ='<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true"><div class="toast-header"><strong class="mr-auto">Suppression</strong> <small class="text-muted"><strong>'+dateActuelle+'</strong></small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div> <div class="toast-body">' ;
             var information = $('#information') ;
+            if (emailState=='MAIL_TOGGLE_SUCCESS'|| emailState=='MAIL_TOGGLE_ERROR')
+            { 
+                var message = (emailState=='MAIL_TOGGLE_SUCCESS' ? "a correctement changé d'état" :  "n'a pas correctement changé d'état. Il a eu une erreur."  ) ;
+                toast = toast + 'Le compte <strong>' +email +' </strong>' +message +'</div></div> ' ;
+                information.append(toast) ;
+                //var infoSupression = $('.infoSupression').last() ;
+                //infoSupression.toast('show');
+                information.animate( {scrollTop:1000000},1000 ) ;
+                $('#informationToolbox').addClass('d-none'); 
+                //Va nous permettre de réafficher les informations précédentes
+                var content= "";
+                $('.infoSupression').each(function(){
+                content += '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">'+$(this).html()+'</div> ';
+                }) ;
+                // Enregistrer des données dans sessionStorage
+                sessionStorage.setItem('infoSupression', content);
+                //On recharge la page pour que php puisse enlever le mail déja supprimé
+                document.location.reload();
+            } 
+            //Lors du changement de mot de passe 
+            if (emailState=='MAIL_MODIFY_SUCCESS' || emailState=='MAIL_MODIFY_ERROR')
+            { 
+                var message = ( emailState=='MAIL_MODIFY_SUCCESS' ? "a été correctement changé "  :  "n\'a pas été changé. Il a eu une erreur. Vérifier que le mot de passe contient 8 caractères, une minuscule , une majuscule, un chiffre." );
+                toast = toast + 'Le mot de passe du compte <strong>' +email +' </strong>' +message +'</div></div> ' ;
+                information.append(toast) ;
+                information.animate( {scrollTop:1000000},1000 ) ;
+                $('#informationToolbox').addClass('d-none'); 
+                //Va nous permettre de réafficher les informations précédentes
+                var content= "";
+                $('.infoSupression').each(function(){
+                content += '<div class="toast infoSupression" data-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">'+$(this).html()+'</div> ';
+                }) ;             
+                // Enregistrer des données dans sessionStorage
+                sessionStorage.setItem('infoSupression', content);
+                //On recharge la page pour que php puisse enlever le mail déja supprimé
+                document.location.reload();  
+            } 
             
             if (emailState=='MAIL_DELETE_SUCCESS')
             { 
@@ -51,7 +89,7 @@ $(function()
             }
             else if (emailState=='MAIL_DELETE_SUCCESS_BUT_DIRECTORY_DELETE_NOT_SUCESS')
             {
-                toast = toast + 'Le compte <strong>' +email +' </strong> a été supprimé. Seulement le répertoire courant du compte n\'a pu etre supprimé du serveur.Procédure à suivre : Ne rien faire sinon m\'envoyer un mail  en cliquant sur <a href="mailto: houessoupicasso@yahoo.fr ?subject=eneam.da: MAIL_DELETE_SUCCESS_BUT_DIRECTORY_DELETE_NOT_SUCESS&body=Le compte ' +email +' a été supprimé. Seulement le répertoire courant du compte n\'a pu etre supprimé du serveur."> Picasso Houessou </a>.</div></div> ' ;
+                toast = toast + 'Le compte <strong>' +email +' </strong> a été supprimé. Seulement le répertoire courant du compte n\'a pu etre supprimé du serveur. Procédure à suivre : Ne rien faire sinon m\'envoyer un mail  en cliquant sur <a href="mailto: houessoupicasso@yahoo.fr ?subject=eneam.da: MAIL_DELETE_SUCCESS_BUT_DIRECTORY_DELETE_NOT_SUCESS&body=Le compte ' +email +' a été supprimé. Seulement le répertoire courant du compte n\'a pu etre supprimé du serveur."> Picasso Houessou </a>.</div></div> ' ;
                 information.append(toast) ; 
                 //var infoSupression = $('.infoSupression').last() ;
                 //infoSupression.toast('show');
@@ -79,14 +117,15 @@ $(function()
             }            
         }        
     }    
+	//Pour supprimer un compte
     var supprime= $('.supprime') ;   
     //var mail = $('.mail') ;
     supprime.on('click',function()
     {
         var compteID = $(this).attr('id'), paren = $(this).offsetParent() ,  intermediaire =  paren.find('[href]');
-        compteID = encodeURIComponent(compteID) ;
-        compteEmail = encodeURIComponent(compteEmail) ;
-        var compteEmail =  intermediaire.attr('href').split('mailto:') [1];  
+        compteID = encodeURIComponent(compteID) ;  // a ne pas mettre pour le email sinon erreur    
+        var compteEmail =  intermediaire.attr('href').split('mailto:') [1]; 
+        
         $('#modalConfirmationId').html('<p class="text-justify">Etes vous sur de vouloir supprimer le compte <strong><a href="mailto:'+compteEmail+'">'+compteEmail+'<a>.</strong> Cette opération est irréversible et implique la suppression pure et simple du compte y compris toutes les données qui lui sont associées.</p>' ) ;
         $('#confirmation').modal('show') ;
         $('#buttonConfirm').click( function(e){
@@ -113,6 +152,7 @@ $(function()
             //A la fin on supprime cet evenement
             $(this).off('click');
         }); 
+        
         //On annule tous les évènements unitiles C'est très important sinon causes des bugs lors de la prochaine requetes
         $('#confirmation').on('hidden.bs.modal', function (e){
             $('#buttonConfirm').off('click');
@@ -142,6 +182,70 @@ $(function()
     }
         */
     });  
+	
+    // Pour désactiver un compte 
+    var desactiveCompte =$('.desactiveCompte');
+    desactiveCompte.on('click', function(){
+        paren = $(this).offsetParent() ,  intermediaire =  paren.find('[href]');   
+        var compteEmail =  intermediaire.attr('href').split('mailto:') [1];  
+        $.post(  
+            'pages/traitement.php' ,
+            {
+                
+                email :  compteEmail  ,   
+                toggleCompteState : 'toggleCompteState'              
+            },
+            function(data){
+                displayResult (data) ;
+            },
+            'text'
+        );
+
+    }) ;
+	
+	//Pour éditer un compte 
+	var editerCompte = $('.editerCompte') ;
+	editerCompte.on('click', function (){
+		var paren = $(this).offsetParent() ,  intermediaire =  paren.find('[href]');      
+        var compteEmail =  intermediaire.attr('href').split('mailto:') [1]; 
+              
+		var modifierCompteModal = $('#modifierCompte') ;
+		$('#emailToModify').attr('value', compteEmail) ;
+		$('#modifierCompte').modal('show');
+		$('#buttonConfirmCompteModify').click( function(e){
+            e.preventDefault();            
+            var password = $('#newPasswordUser').val() ; 
+            var passwordConfirm = $('#newPasswordUserConfirm').val() ; 	
+            $('#modifierCompte').modal('hide') ;		
+            $.post(  
+                'pages/traitement.php' ,
+                {
+                    email :  compteEmail , 
+                    newPassword :  password,
+                    newPasswordConfirm : passwordConfirm
+                },
+                function(data){
+                    displayResult (data) ;
+                },
+                'text'
+            );
+			
+		});
+		
+		//On annule tous les évènements unitiles C'est très important sinon causes des bugs lors de la prochaine requetes
+        $('#modifierCompte').on('hidden.bs.modal', function (e){
+            $('#modifierUser')[0].reset();
+            /*
+            $('#buttonConfirmCompteModify').off('click');
+            //$('#buttonAnnuler').off('click');
+            $(this).off('hidden.bs.modal');
+            */
+        });
+        
+		
+	}) ;
+	
+	
     $('#information').draggable(); // Le drag and drop pour les notifications
     document.getElementById('enregistrerContenuInformation').addEventListener('click', function(){
     //$('#enregistrerContenuInformation').on('click', function(){

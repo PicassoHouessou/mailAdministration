@@ -120,12 +120,15 @@ function verifierSession()
     if ( session_status()== PHP_SESSION_DISABLED )
     {
         $error= 'SESSION_NOT_EXIST' ;
+		$_SESSION = array() ;
+        session_destroy() ;
         header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
     }
     if (session_status()== PHP_SESSION_NONE )
     {
         $error= 'SESSION_NOT_EXIST' ;
+		$_SESSION = array() ;
         session_destroy() ;
         header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;   
@@ -134,7 +137,7 @@ function verifierSession()
     if ( !isset($_SESSION['state']))
     {
         $error= 'SESSION_INCORRECT' ;
-        $_SESSION[] = array() ;
+        $_SESSION = array() ;
         session_destroy() ;
         header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
@@ -143,7 +146,7 @@ function verifierSession()
     if ( isset($_SESSION['state']) && $_SESSION['state'] != true)
     {
         $error= 'SESSION_INCORRECT' ;
-        $_SESSION[] = array() ;
+        $_SESSION = array() ;
         session_destroy() ;
         header ('Location: index.php?page=loginadmin&error='.$error);
         exit ;
@@ -170,9 +173,8 @@ function verifierAuthenticiteSession()
         $_SESSION = array();
         session_destroy();
         header('location:index.php?erreur');
+		exit ;
     }
-
-    
 }
 
 function deconnexionAuto ()

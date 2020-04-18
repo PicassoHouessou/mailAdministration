@@ -7,9 +7,9 @@ function protectionForm($var)
     return htmlspecialchars($var) ;       
 }
 if ( session_status()== PHP_SESSION_ACTIVE && isset($_SESSION['state']) && $_SESSION['state']== true )
-{
-    
+{    
     header('Location: index.php?page=home') ;
+	exit ;
 }
 if ( isset($_POST['email']) && isset($_POST['password']))
 {
@@ -25,10 +25,10 @@ if ( isset($_POST['email']) && isset($_POST['password']))
     } catch (Exception $e)
     {
  
-        dye('Erreur : ' .$e->getMessage()) ;
+        die('Erreur : ' .$e->getMessage()) ;
     }
     //On recupere le login et mot de passe dans la base de donnée
-    $req1 = $bdd->prepare('SELECT * FROM admin WHERE email=:mail') ;
+    $req1 = $bdd->prepare('SELECT * FROM admin WHERE email=:mail AND `state`=TRUE') ;
     $req1->execute( array(
     'mail' =>  $emailAdmin        
     )) ;

@@ -30,7 +30,7 @@ $(function()
         */        
     }
     function displayResult(reponse)
-    {  
+    {        
         if (reponse.length)
         {
             reponse = reponse.split("|") ;
@@ -130,10 +130,13 @@ $(function()
             */
             for (var i in tab )
             {
-                sendDetail("status",i ) ;
+                sendDetail("status", i ) ;
+				
             }         
-            verifierEtat(tab) ;            
-        }, 10000) ;       
+            verifierEtat(tab) ;
+            
+        }, 5000) ;    
+		
     }    
     var tableau = {
         apache2 : 'apache2',

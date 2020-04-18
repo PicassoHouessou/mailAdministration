@@ -220,7 +220,7 @@ try
     )) ; 
     //Si c'est bon on crée le repertoire avec les bons droits d'acces 
     if ($db->commit())
-    {   $cheminScript = "/externe/www/html/www.admin.eneam.da/scripts/" ;
+    {   $cheminScript = "/externe/www/html/www.admin.eneam.da/public_html/scripts/" ;
         $nomRepertoire = $debutMail ;
         $retour = 1 ;
         exec('sudo '.$cheminScript.'createUserDirectory.sh ' .$nomRepertoire , $ligne, $retour);

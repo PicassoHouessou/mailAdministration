@@ -42,6 +42,7 @@
                 $_SESSION['tri'] = $tri ;
                 break;            
         }
+       
     }     
     if (isset($_GET['limite']) && empty($_GET['limite']) == false )
     {        
@@ -92,7 +93,7 @@
     continuer:
     $debut = ($page - 1)* $limite ;
     //$debut = ( $limite==-1 ? -1 : $debut) ;    
-    $req = $db->prepare('SELECT SQL_CALC_FOUND_ROWS `virtual_users`.`id` AS id , `email` , `nom`, `prenom`, `matricule`, `telephone`, `pays`, `date_fin` FROM `virtual_users` INNER JOIN `virtual_users_infos` ON `virtual_users`.`id`= `virtual_users_infos`.`virtual_user_id` ORDER BY :tri DESC LIMIT :limite OFFSET :debut  ');
+    $req = $db->prepare('SELECT SQL_CALC_FOUND_ROWS `virtual_users`.`id` AS id , `email` , `state`, `nom`, `prenom`, `matricule`, `telephone`, `pays`, `date_fin` FROM `virtual_users` INNER JOIN `virtual_users_infos` ON `virtual_users`.`id`= `virtual_users_infos`.`virtual_user_id` ORDER BY :tri DESC LIMIT :limite OFFSET :debut  ');
     $req->bindValue('tri',$tri);
     $req->bindValue('limite',$limite, PDO::PARAM_INT);
     $req->bindValue('debut',$debut, PDO::PARAM_INT) ;
@@ -139,17 +140,26 @@ while ($don= $req->fetch())
     ?>    
     <div class="col-md-3 col-sm-5 " style="margin-top: 2%; margin-bottom: 2%;">
             <div class="card col-md-12" style="height: 100%;">
-                <img src="..." class="card-img-top" alt="...">
+                
                 <div class="card-body">
                     <h5 class="card-title"><strong class="text-secondary"><?php echo $don['prenom'].' '.$don['nom'] ;?></strong></h5>
-                    <p class="card-text"><strong>Matricule : </strong><?php echo $don['matricule'] ; ?><br>
+                    <p class="card-text">
+						<strong>Mail : </strong><a class="text-dark" href="mailto:<?php echo $don['email'] ; ?>" ><?php echo $don['email'] ; ?></a> <br>
+						<strong>Matricule : </strong><?php echo $don['matricule'] ; ?><br>
                         <strong>Tél : </strong><?php echo $don['telephone'] ; ?><br/>
-                        <strong>Expire : </strong><?php echo $don['date_fin'] ; ?><br></p>                 
+                        <strong>Expire : </strong><?php echo $don['date_fin'] ; ?><br>
+					</p>                 
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                            <button type="button" class="btn btn-secondary supprime" id="<?php echo $don['id'];?>" title="Cliquer pour supprimer le compte <?php echo $don['email'] ; ?>"  ><i class="fas fa-user-times "></i></button>
-                            <button type="button" class="btn btn-secondary" title="Cliquer pour éditer le compte <?php echo $don['email'] ; ?>"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="btn mail btn-secondary" title="Cliquer pour joindre le compte <?php echo $don['email'] ; ?>"><a href="mailto:<?php echo $don['email'] ; ?>" class="text-light"><i class="fas fa-mail-bulk" ></i></a></button>                            
+                        
+                            <button type="button" class="btn mail btn-secondary desactiveCompte" title="Cliquer pour <?php if ($don['state']==TRUE) { echo "désactiver " ; } else { echo "activer " ;} ?> ce compte"> <i class="fas <?php if ($don['state']==TRUE) { echo " fa-unlock " ; } else { echo " fa-lock " ;} ?> " ></i></a></button> 
+                            <button type="button" class="btn btn-secondary supprime" id="<?php echo $don['id'];?>" title="Cliquer pour supprimer le compte <?php echo $don['email'] ; ?>" ><i class="fas fa-user-times "></i></button>
+                            <button type="button" class="btn btn-secondary editerCompte" title="Cliquer pour éditer le compte <?php echo $don['email'] ; ?>"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn mail btn-secondary"  title="Cliquer pour joindre le compte <?php echo $don['email'] ; ?>"><a href="mailto:<?php echo $don['email'] ; ?>" class="text-light"><i class="fas fa-mail-bulk" ></i></a></button> 
+							<?php // a teni compte pour permettre par la suite à l'administrateur de voir les mails des utilisateurs ?>
+							<!--
+							<button type="button" class="btn mail btn-secondary" title="Cliquer pour jvoir les couriers <?php echo $don['email'] ; ?>"><a href="index.php=page=user_email"?email=<?php echo $don['email'] ; ?>" class="text-light"><i class="fas fa-eye" ></i></a></button> 
+							-->
                         </div>
                     </div>
                 </div>                
@@ -192,8 +202,50 @@ if ($erreurSuppression="MAIL_DELETE")
         </ul>
     </div>
 </div>
+<!-- Modal -->
+<!-- Utile pour modifier le compte d'un utilisateur  -->
+<div class="modal" tabindex="-1" role="dialog" id="modifierCompte" >
+<div class="modal-dialog" role="document" >
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Modification du compte</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="modifierUser" method="post" action="#">
+                <div class="form-group row">
+					<label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                        <input type="text"  class="form-control-plaintext" id="emailToModify" value="email@example.com" readonly>
+                    </div>				
+					
+                </div>
+                <div class="form-group row">
+                    <label for="newPasswordUser" class="col-sm-4 col-form-label">Mot de passe </label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="newPasswordUser" required>
+                    </div>
+                </div>
+				<div class="form-group row">
+                    <label for="newPasswordUserConfirm" class="col-sm-4 col-form-label">Mot de passe</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="newPasswordUserConfirm" required>
+                    </div>
+                </div>  
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" id="buttonConfirmCompteModify" class="btn btn-primary">Enregistrer</button>
+                </div>              
+            </form>
+        </div>
+        
+    </div>
+  </div>
+</div>
 
-<!-- Utile pour le js alert qui s'affiche lors de la supprrssion de compte  -->
+<!-- Utile pour le js alert qui s'affiche lors de la suppression de compte  -->
 <div class="modal" tabindex="-1" role="dialog" id="confirmation">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

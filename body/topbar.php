@@ -32,7 +32,14 @@
                 -->	
                 <div class="dropdown col-md-2" id="loginIcon" title="Gestion compte et déconnexion">          
                     <div class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user fa-lg text-light"></i></div>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">      
+                        <?php 
+                        if ( isset($_SESSION['email']) && $_SESSION['email']== 'master@eneam.da')
+                        {
+                            echo '<a class="dropdown-item rounded" href="index.php?page=adminmanage" id="adminManage">Gérer les administrateurs</a><br>' ;
+
+                        }
+                        ?>          
                         <a class="dropdown-item rounded" href="index.php?page=logout" id="deconnecte">Se déconnecter</a>
                     </div>
                 </div>             

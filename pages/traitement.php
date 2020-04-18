@@ -41,22 +41,28 @@ foreach ( $service as $cle=>$element)
     //Alors on execute le script qui renvoie l'etat d'un service
     if (isset($_POST[$cle]) && ( $_POST[$cle]=='status' && $cle != 'all' && $_POST[$cle] != 'all') )
     {
-        $result= 1;
-        exec ('sudo '.$cheminScript.'statusService.sh '. $element, $ligne, $result) ;
-        if ( $result==0 )
+        $resultStatus = 1 ;
+        //passthru ('sudo '.$cheminScript.'statusService.sh'.' '.$element, $resultStatus) ;
+        //exec ('sudo '.$cheminScript.'statusService.sh '.$element, $ligne2, $resultStatus) ;
+        exec('sudo '.$cheminScript.'statusService.sh '.$_POST[$cle].' '.$element , $ligne2, $resultStatus);
+        if ( $resultStatus == 0 )
         {
             echo $cle.'|restart' ;
+            $resultStatus = 1 ;
             exit ;
         }
         else 
         {
-            echo $cle.'|stop' ;  
+            echo $cle.'|stop' ;
+            $resultStatus = 1 ;
             exit ;
-        }  
-    }
+        } 
+    } 
 }
+//Pour supprimer un compte 
 if (isset($_POST['id']) && isset($_POST['email']) )
 {
+	
     $db = connectDatabase();
     $id =  htmlspecialchars( $_POST['id'] );
     $id = (int) $id ;
@@ -72,10 +78,13 @@ if (isset($_POST['id']) && isset($_POST['email']) )
                 'id'=>$id,
                 'email'=> $email
             )) ;
-        $don = $req->fetch() ;
+        $don = $req->fetch() ; 
+		
         //Si le compte email existe on supprime les tables associés
         if ($don)
         {
+			
+			
             $req->closeCursor() ; 
             //NB: Nous utilisons ON DELETE CASCADE pour la clé etrangere dans MYSQL donc la ligne suivante est inutile
             $req = $db->prepare('DELETE FROM `virtual_users_infos` WHERE `virtual_user_id`=:id') ;
@@ -90,6 +99,7 @@ if (isset($_POST['id']) && isset($_POST['email']) )
                 'email'    => $email         
             )) ;
             $req->closeCursor() ;
+			
             // Si tout est ok on lance le script qui doit supprimer le repertoire de l'utilisateur
             if($db->commit() )
             {
@@ -113,11 +123,97 @@ if (isset($_POST['id']) && isset($_POST['email']) )
     }
     catch (Exception $e)
     {
-        $db->rollBack() ; 
+		
+        $db->rollBack() ;  echo $_POST['email'] ; exit ;
         echo $email.'|split|MAIL_DELETE_ERROR' ;
         exit ;
     }
+	exit ;
 }
+
+// Pour activer ou desactiver un compte
+if ( isset($_POST['email']) &&  isset($_POST['toggleCompteState']))
+{
+    $db = connectDatabase();    
+    $email = htmlspecialchars( $_POST['email'] );
+    $email = str_replace(array("\n","\r",PHP_EOL),'',$email);
+    $email = (string) $email ;  
+    try 
+    {
+        $db->beginTransaction(); 
+        $req = $db->prepare('UPDATE `virtual_users` SET `state` = NOT  `state` WHERE email=:email') ;
+        $req->execute (
+            array(
+                'email'=> $email
+            )) ;
+        $req->closeCursor() ;
+            // Si tout est ok on lance le script qui doit supprimer le repertoire de l'utilisateur
+            if($db->commit() )
+            {
+                echo $email.'|split|MAIL_TOGGLE_SUCCESS' ; exit ;                  
+            }   
+    }  catch (Exception $e)
+    {
+        $db->rollBack() ; 
+        echo $email.'|split|MAIL_TOGGLE_ERROR' ;  
+        exit ;                  
+    }
+
+}
+       
+// Pour modifier le mot de passe 
+if ( isset($_POST['email']) &&  isset($_POST['newPassword']) && isset ($_POST['newPasswordConfirm']))
+{
+    $db = connectDatabase();    
+    $email = htmlspecialchars( $_POST['email'] );
+    $email = str_replace(array("\n","\r",PHP_EOL),'',$email);
+    $email = (string) $email ; 
+    sleep(1) ; // On met en pause une seconde ralentir les attaques par brute force
+    $password = $_POST['newPassword'] ;
+    $passwordConfirm = $_POST['newPasswordConfirm'] ;     
+    $regPassword = '#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#';       
+    if ($password != $passwordConfirm) 
+    {
+        echo $email.'|split|MAIL_MODIFY_ERROR' ;   exit ;
+    }// si les mot de passes sont les meme ont vérifie leur entropies
+    if (preg_match($regPassword, $password) == false )
+    {
+        echo "passerrordiffrent" ; exit;
+        echo $email.'|split|MAIL_MODIFY_ERROR' ; exit ;       	
+    }   
+    else{
+        // On hash le mot de passe
+        $password = password_hash($password, PASSWORD_ARGON2I ) ;
+        if ($password==false)
+        {
+            echo $email.'|split|MAIL_MODIFY_ERROR' ;   exit ;
+        }
+    }
+    try 
+    {
+        $db->beginTransaction(); 
+        $req1= $db->prepare(' UPDATE  `virtual_users` SET `password` = :pass WHERE email=:email ') ;
+        $req1->execute(array(
+            'email' => $email ,
+            'pass'      => $password 
+        )) ;
+        $req1->closeCursor() ;    
+    
+        if($db->commit() )
+        {  
+            echo $email.'|split|MAIL_MODIFY_SUCCESS' ;  exit ;                  
+        }   
+    }  catch (Exception $e)
+    {
+        $db->rollBack() ; 
+        echo $email.'|split|MAIL_MODIFY_ERROR' ;  
+        exit ;                  
+    }
+    exit;
+	
+}
+
+
 
 if (
     isset ($_POST['nom']) && empty($_POST['nom']) != true &&
